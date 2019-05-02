@@ -1,0 +1,78 @@
+import { Component, EventEmitter, Output } from '@angular/core';
+import { BsLocaleService } from 'ngx-bootstrap/datepicker';
+import { defineLocale } from 'ngx-bootstrap/chronos';
+import { esLocale } from 'ngx-bootstrap/locale';
+
+import { Category } from 'src/app/_model/category';
+import * as moment from 'moment';
+import { ValueTransformer } from '@angular/compiler/src/util';
+
+@Component({
+  selector: 'app-auction-new-header',
+  templateUrl: './auction-new-header.component.html',
+  styleUrls: ['./auction-new-header.component.css']
+})
+export class AuctionNewHeaderComponent {
+
+  myDate: Date = new Date();
+  myTime: Date = this.getInitHour();
+
+  selectedCategory: number = 0;
+  selectedDate = this.getSelectedDate();
+  selectedTime = this.getSelectedTime();
+  selectedInterval: number = 2;
+
+  values: any[]
+
+  constructor(private _localeService: BsLocaleService) {
+    defineLocale('es', esLocale);
+    this._localeService.use('es');
+  }
+
+  @Output() emision: EventEmitter<any[]> = new EventEmitter<any[]>();
+
+  getSelectedDate() { return moment(this.myDate).format('L'); }
+  getSelectedTime() { return moment(this.myTime).get('hour'); }
+
+  getInitHour() {
+    let r = new Date();
+    r.setHours(18);
+    return r;
+  }
+
+  categories: Category[] = [
+    { id: 1, name: 'Transformers' },
+    { id: 2, name: 'Star Wars' },
+    { id: 3, name: 'Marvel Legends' },
+    { id: 4, name: 'Saint Seiya' },
+    { id: 5, name: 'GIJOE' }
+  ];
+  minutes: any[] = [
+    2,
+    3,
+    4,
+    5
+  ];
+
+  onSelectedCategory(event) {
+    this.selectedCategory = event.value.id;
+  }
+  onDateChanged() {
+    this.selectedDate = this.getSelectedDate();
+    this.raiseEvent();
+  }
+  onTimeChanged() {
+    this.selectedTime = this.getSelectedTime();
+    this.raiseEvent();
+  }
+  onIntervalChanged(x) {
+    this.selectedInterval = x.value;
+  }
+
+  raiseEvent() {
+    this.values = [];
+    this.values.push(moment(this.myDate).format('L'));
+    this.values.push(moment(this.myTime).get('hour'));
+    this.emision.emit(this.values);
+  }
+}

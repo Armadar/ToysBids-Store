@@ -1,0 +1,46 @@
+<div>
+  <div class="row">
+    <app-auction-new-header (emision)="getDateAndTime($event)"></app-auction-new-header>      
+  </div>
+  <div class="row">
+    <form [formGroup]="uploadForm" (ngSubmit)="uploadSubmit()">
+      <label for="file-upload" class="custom-file-upload">
+        <i class="fa fa-cloud-upload"></i> Seleccionar imagenes
+      </label>
+      <input (change)="onFileChanged($event)" formControlName="document" id="file-upload" type="file" ng2FileSelect
+        accept="image/png,image/jpeg,image/jpg" [uploader]="uploader" multiple /><br />
+      <br>
+      <!--<div class="drop-zone">-->
+      <div ng2FileDrop [uploader]="uploader" class="drop-zone">
+        Drag and drop files to upload
+      </div>
+      
+      <!--</div>-->
+      <div id="container">
+
+        <div *ngFor="let item of uploader.queue; let i = index"
+          style="max-width:120px;width:120px;height:200px;border-width:1px;border-style:solid;border-color:green;display:inline-block;margin-right:10px;margin-bottom:10px">
+          <div>
+            <img src="" imgPreview [image]="item?._file" class="media-object"
+              style="height:120px;width:auto;max-width:120px;margin-bottom: 10px;" />
+          </div>
+          <div id={{i+1}}>
+            <span style="float:left;margin-right: 10px;">Base:</span>
+            <input placeholder="0.00" class="form-control input-sm" id="precio" type="text" required style="width:50px"
+              (focusout)="onSetPrice($event.target.parentElement.parentElement.id,$event.target.value)">
+
+            <!--{{ item.file.name}}({{item.file.size/1000000}} MB)-->
+            <i class="fa fa-times" style="color:red;font-size: 1.5em" title="Eliminar"
+              (click)="item.remove();onRemoveItem($event.target.parentElement.id)"></i>
+            <!--<input type="text" required style="width:50px"
+                (focusout)="onSetDescription($event.target.parentElement.parentElement.id,$event.target.value)">-->
+          </div>
+        </div>
+
+      </div>
+      <br>
+      <button mat-raised-button color="accent" [disabled]="!uploadForm.valid" type="submit">Upload Data</button>
+    </form>
+  </div>
+  <div class="row"></div>
+</div>

@@ -1,0 +1,15 @@
+.drop-zone{
+    min-height: 100px;
+    max-width: 95%;
+    border: 1px dashed grey;
+    margin-bottom:20px;
+  }
+input[type="file"] {
+    display: none;
+}
+.custom-file-upload {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+}
