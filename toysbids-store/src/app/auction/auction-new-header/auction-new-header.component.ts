@@ -55,7 +55,16 @@ export class AuctionNewHeaderComponent {
   ];
 
   onSelectedCategory(event) {
-    this.selectedCategory = event.value.id;
+    var control = document.getElementById('category').children[0].children[0];
+    if (event.value != undefined) {
+      this.selectedCategory = event.value.id;
+      control.classList.remove('border-red');
+      control.classList.add('border-green');
+    } else {
+      this.selectedCategory = 0;
+      control.classList.remove('border-green');
+      control.classList.add('border-red');
+    }
   }
   onDateChanged() {
     this.selectedDate = this.getSelectedDate();
