@@ -20,8 +20,11 @@ export class AuctionNewComponent implements OnInit {
     isHTML5: true
   });
   isValid: boolean = false;
+  isValidCategory = false;
+  areThereImages = false;
+
   @ViewChild(AuctionNewHeaderComponent) child;
-  
+
   constructor(private fb: FormBuilder, private http: HttpClient) { }
 
   onSetPrice(id: any, value: string): void {
@@ -56,6 +59,7 @@ export class AuctionNewComponent implements OnInit {
 
     console.log(`the index ${id} just has been removed`);
     console.log(this.info);
+    this.checkIsValid();
   }
   isValidInfo() {
     let missingInfoTotal = 0;
@@ -127,7 +131,7 @@ export class AuctionNewComponent implements OnInit {
     */
     return this.http.post<any>('http://localhost:4000/images/upload', data);
   }
-  
+
   uploadSubmit() {
     console.log(`Selected Category: ${this.child.selectedCategory} Selected Date: ${this.child.selectedDate} Selected Time: ${this.child.selectedTime} Selected Time: ${this.child.selectedInterval}`);
   }
@@ -141,9 +145,11 @@ export class AuctionNewComponent implements OnInit {
     });
   }
 
-  onChangedCategory(event) {
-    this.isValid = event;
+  onChangedCategory(validCategory) {
+    this.isValidCategory = validCategory;
+    this.checkIsValid();
   }
+
   onFileChanged(event) {
     var hour = 9;//moment(this.mytime).get('hour');
     var start = moment('2019-05-06').add(hour, 'hour');
@@ -153,6 +159,13 @@ export class AuctionNewComponent implements OnInit {
     for (let i = 0; i < this.uploader.queue.length; i++) {
       list.push(moment(start).add(i * minuteStep, 'minute').toString());
     }
-    console.log(list);
+    
+    this.checkIsValid();
+  }
+
+  checkIsValid()
+  {
+    this.areThereImages = this.uploader.queue.length > 0;
+    this.isValid = this.isValidCategory && this.areThereImages;
   }
 }
