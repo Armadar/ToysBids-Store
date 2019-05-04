@@ -13,6 +13,7 @@ import { AuctionNewHeaderComponent } from './../auction-new-header/auction-new-h
 })
 export class AuctionNewComponent implements OnInit {
 
+  isValid: boolean = false;
   @ViewChild(AuctionNewHeaderComponent) child;
   uploadForm: FormGroup;
 
@@ -26,7 +27,7 @@ export class AuctionNewComponent implements OnInit {
     console.log(`Selected Category: ${this.child.selectedCategory} Selected Date: ${this.child.selectedDate} Selected Time: ${this.child.selectedTime} Selected Time: ${this.child.selectedInterval}`);
   }
   getDateAndTime(event) {
-    console.log(event);    
+    console.log(event);
   }
 
   ngOnInit() {
@@ -35,7 +36,9 @@ export class AuctionNewComponent implements OnInit {
     });
   }
 
-
+  onChangedCategory(event) {
+    this.isValid = event;
+  }
   onFileChanged(event) {
     var hour = 9;//moment(this.mytime).get('hour');
     var start = moment('2019-05-06').add(hour, 'hour');

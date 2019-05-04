@@ -1,6 +1,6 @@
 <div>
   <div class="row">
-    <app-auction-new-header (emision)="getDateAndTime($event)"></app-auction-new-header>      
+    <app-auction-new-header (emision)="getDateAndTime($event)" (changeCategory)="onChangedCategory($event)"></app-auction-new-header>      
   </div>
   <div class="row">
     <form [formGroup]="uploadForm" (ngSubmit)="uploadSubmit()">
@@ -10,12 +10,9 @@
       <input (change)="onFileChanged($event)" formControlName="document" id="file-upload" type="file" ng2FileSelect
         accept="image/png,image/jpeg,image/jpg" [uploader]="uploader" multiple /><br />
       <br>
-      <!--<div class="drop-zone">-->
       <div ng2FileDrop [uploader]="uploader" class="drop-zone">
         Drag and drop files to upload
       </div>
-      
-      <!--</div>-->
       <div id="container">
 
         <div *ngFor="let item of uploader.queue; let i = index"
@@ -39,7 +36,7 @@
 
       </div>
       <br>
-      <button mat-raised-button color="accent" [disabled]="!uploadForm.valid" type="submit">Upload Data</button>
+      <button class="btn btn-primary" [disabled]="!isValid" type="submit">Cargar Imagenes</button>
     </form>
   </div>
   <div class="row"></div>

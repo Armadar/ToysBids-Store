@@ -30,6 +30,7 @@ export class AuctionNewHeaderComponent {
   }
 
   @Output() emision: EventEmitter<any[]> = new EventEmitter<any[]>();
+  @Output() changeCategory: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   getSelectedDate() { return moment(this.myDate).format('L'); }
   getSelectedTime() { return moment(this.myTime).get('hour'); }
@@ -60,10 +61,12 @@ export class AuctionNewHeaderComponent {
       this.selectedCategory = event.value.id;
       control.classList.remove('border-red');
       control.classList.add('border-green');
+      this.changeCategory.emit(true);
     } else {
       this.selectedCategory = 0;
       control.classList.remove('border-green');
       control.classList.add('border-red');
+      this.changeCategory.emit(false);
     }
   }
   onDateChanged() {
