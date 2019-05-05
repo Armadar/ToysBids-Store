@@ -28,6 +28,7 @@ export class AuctionNewComponent implements OnInit {
   constructor(private fb: FormBuilder, private http: HttpClient) { }
 
   onSetPrice(id: any, value: string): void {
+    console.log('on SetPrice',`ID: ${id} value: ${value}`);
     /* var elemId = event.explicitOriginalTarget.id; document.getElementById(elemId).classList.remove('focused');*/
     if (!this.info.some(e => e.index === id)) {
       this.info.push(new Info(id, value, ''));
@@ -67,19 +68,19 @@ export class AuctionNewComponent implements OnInit {
     for (let i = 1; i <= this.uploader.queue.length; i++) {
       var info = this.getItemInfoById(i);
       var control = document.getElementById(i.toString());
-
+console.log(info);
       if (info === undefined) {
         missingInfoTotal++;
         if (control != undefined) {
-          control.children[1].children[0].classList.add('pendinginfo');
+          control.children[1].classList.add('pendinginfo');
         }
       } else {
         if (control != undefined) {
           if (this.isMissingInfo(info)) {
             missingInfoTotal++;
-            control.children[1].children[0].classList.add('pendinginfo');
+            control.children[1].classList.add('pendinginfo');
           } else {
-            control.children[1].children[0].classList.add('completedinfo');
+            control.children[1].classList.add('completedinfo');
           }
         }
       }
@@ -89,7 +90,7 @@ export class AuctionNewComponent implements OnInit {
   isMissingInfo(info: Info) {
     return info.precio === undefined || info.precio === null || info.precio.length === 0 || isNaN(Number(info.precio));
   }
-  uploadSubmitOK() {
+  uploadSubmit() {
     if (this.isValidInfo()) {
       for (var i = 0; i < this.uploader.queue.length; i++) {
         let fileItem = this.uploader.queue[i]._file;
@@ -132,12 +133,10 @@ export class AuctionNewComponent implements OnInit {
     return this.http.post<any>('http://localhost:4000/images/upload', data);
   }
 
-  uploadSubmit() {
+  uploadSubmitMessage() {
     console.log(`Selected Category: ${this.child.selectedCategory} Selected Date: ${this.child.selectedDate} Selected Time: ${this.child.selectedTime} Selected Time: ${this.child.selectedInterval}`);
   }
-  getDateAndTime(event) {
-    console.log(event);
-  }
+  getDateAndTime(event) {}
 
   ngOnInit() {
     this.uploadForm = this.fb.group({
@@ -159,12 +158,11 @@ export class AuctionNewComponent implements OnInit {
     for (let i = 0; i < this.uploader.queue.length; i++) {
       list.push(moment(start).add(i * minuteStep, 'minute').toString());
     }
-    
+
     this.checkIsValid();
   }
 
-  checkIsValid()
-  {
+  checkIsValid() {
     this.areThereImages = this.uploader.queue.length > 0;
     this.isValid = this.isValidCategory && this.areThereImages;
   }

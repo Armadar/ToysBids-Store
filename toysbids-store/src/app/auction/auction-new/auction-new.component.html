@@ -24,7 +24,7 @@
           <div id={{i+1}}>
             <span style="float:left;margin-right: 10px;">Base:</span>
             <input placeholder="0.00" class="form-control input-sm" id="precio" type="text" required style="width:50px"
-              (focusout)="onSetPrice($event.target.parentElement.parentElement.id,$event.target.value)">
+              (focusout)="onSetPrice($event.target.parentElement.id,$event.target.value)">
 
             <!--{{ item.file.name}}({{item.file.size/1000000}} MB)-->
             <i class="fa fa-times" style="color:red;font-size: 1.5em" title="Eliminar"

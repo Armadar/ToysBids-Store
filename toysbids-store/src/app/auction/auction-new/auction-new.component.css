@@ -13,3 +13,9 @@ input[type="file"] {
     padding: 6px 12px;
     cursor: pointer;
 }
+.pendinginfo {
+    border:1px solid red;
+  }
+.completedinfo {
+   border:1px solid green;
+  }
