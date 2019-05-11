@@ -21,6 +21,9 @@ import {HttpClientModule} from "@angular/common/http";
 import { ImagePreview } from './auction/auction-new/image-preview.directive';
 import { AuctionNewHeaderComponent } from './auction/auction-new-header/auction-new-header.component';
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; 
+import { ToastrModule } from 'ngx-toastr';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,7 +49,9 @@ import { AuctionNewHeaderComponent } from './auction/auction-new-header/auction-
     AppRoutingModule,
     TimepickerModule.forRoot(),
     BsDatepickerModule.forRoot(),
-    SelectDropDownModule
+    SelectDropDownModule,
+    BrowserAnimationsModule, // required animations module
+    ToastrModule.forRoot() // ToastrModule added
   ],
   providers: [],
   bootstrap: [AppComponent]

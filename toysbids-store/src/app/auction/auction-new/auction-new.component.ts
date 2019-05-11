@@ -6,6 +6,7 @@ import { HttpClient } from "@angular/common/http";
 import * as moment from 'moment';
 import { AuctionNewHeaderComponent } from './../auction-new-header/auction-new-header.component';
 import { Info } from 'src/app/_model/info';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-auction-new',
@@ -25,8 +26,9 @@ export class AuctionNewComponent implements OnInit {
 
   @ViewChild(AuctionNewHeaderComponent) child;
 
-  constructor(private fb: FormBuilder, private http: HttpClient) { }
+  constructor(private fb: FormBuilder, private http: HttpClient,private toastr: ToastrService) {}
 
+  
   onSetPrice(id: any, value: string): void {
     console.log('on SetPrice',`ID: ${id} value: ${value}`);
     /* var elemId = event.explicitOriginalTarget.id; document.getElementById(elemId).classList.remove('focused');*/
@@ -91,6 +93,7 @@ console.log(info);
     return info.precio === undefined || info.precio === null || info.precio.length === 0 || isNaN(Number(info.precio));
   }
   uploadSubmit() {
+    this.toastr.success('Hello world!', 'Toastr fun!');
     if (this.isValidInfo()) {
       for (var i = 0; i < this.uploader.queue.length; i++) {
         let fileItem = this.uploader.queue[i]._file;
