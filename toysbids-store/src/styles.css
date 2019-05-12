@@ -10,3 +10,6 @@
 .border-red {
     border: 1px solid red !important;
 }
+#toast-container > .toast-error {
+    font-size: 12px;
+}

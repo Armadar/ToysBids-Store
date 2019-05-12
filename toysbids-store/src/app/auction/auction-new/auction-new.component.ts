@@ -15,6 +15,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class AuctionNewComponent implements OnInit {
 
+  title: string = "Toys Bids";
   uploadForm: FormGroup;
   info: Info[] = new Array();
   public uploader: FileUploader = new FileUploader({
@@ -26,11 +27,11 @@ export class AuctionNewComponent implements OnInit {
 
   @ViewChild(AuctionNewHeaderComponent) child;
 
-  constructor(private fb: FormBuilder, private http: HttpClient,private toastr: ToastrService) {}
+  constructor(private fb: FormBuilder, private http: HttpClient, private toastr: ToastrService) { }
 
-  
+
   onSetPrice(id: any, value: string): void {
-    console.log('on SetPrice',`ID: ${id} value: ${value}`);
+    console.log('on SetPrice', `ID: ${id} value: ${value}`);
     /* var elemId = event.explicitOriginalTarget.id; document.getElementById(elemId).classList.remove('focused');*/
     if (!this.info.some(e => e.index === id)) {
       this.info.push(new Info(id, value, ''));
@@ -70,7 +71,7 @@ export class AuctionNewComponent implements OnInit {
     for (let i = 1; i <= this.uploader.queue.length; i++) {
       var info = this.getItemInfoById(i);
       var control = document.getElementById(i.toString());
-console.log(info);
+      console.log(info);
       if (info === undefined) {
         missingInfoTotal++;
         if (control != undefined) {
@@ -93,7 +94,6 @@ console.log(info);
     return info.precio === undefined || info.precio === null || info.precio.length === 0 || isNaN(Number(info.precio));
   }
   uploadSubmit() {
-    this.toastr.success('Hello world!', 'Toastr fun!');
     if (this.isValidInfo()) {
       for (var i = 0; i < this.uploader.queue.length; i++) {
         let fileItem = this.uploader.queue[i]._file;
@@ -104,11 +104,20 @@ console.log(info);
       }
       for (var j = 0; j < this.uploader.queue.length; j++) {
         let data = this.createData(j);
-        this.uploadFile(data).subscribe(data => alert(data.message));
+        this.uploadFile(data).subscribe(data => alert(data.message), err => {
+          this.toastr.error(this.title, err.message, {
+            timeOut: 3000
+          });
+        });
       }
       this.uploader.clearQueue();
       this.info = [];
       console.log(this.info);
+    }
+    else {
+      this.toastr.error(this.title, "Ingrese los datos pendientes", {
+        timeOut: 3000
+      });
     }
   }
 
@@ -139,7 +148,7 @@ console.log(info);
   uploadSubmitMessage() {
     console.log(`Selected Category: ${this.child.selectedCategory} Selected Date: ${this.child.selectedDate} Selected Time: ${this.child.selectedTime} Selected Time: ${this.child.selectedInterval}`);
   }
-  getDateAndTime(event) {}
+  getDateAndTime(event) { }
 
   ngOnInit() {
     this.uploadForm = this.fb.group({
