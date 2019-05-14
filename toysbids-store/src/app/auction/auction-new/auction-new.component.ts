@@ -8,6 +8,8 @@ import { AuctionNewHeaderComponent } from './../auction-new-header/auction-new-h
 import { Info } from 'src/app/_model/info';
 import { ToastrService } from 'ngx-toastr';
 
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+
 @Component({
   selector: 'app-auction-new',
   templateUrl: './auction-new.component.html',
@@ -69,21 +71,22 @@ export class AuctionNewComponent implements OnInit {
     let missingInfoTotal = 0;
 
     for (let i = 1; i <= this.uploader.queue.length; i++) {
+      console.log(i);
       var info = this.getItemInfoById(i);
       var control = document.getElementById(i.toString());
       console.log(info);
       if (info === undefined) {
         missingInfoTotal++;
         if (control != undefined) {
-          control.children[1].classList.add('pendinginfo');
+          control.children[0].children[1].children[0].children[1].children[0].classList.add('pendinginfo');
         }
       } else {
         if (control != undefined) {
           if (this.isMissingInfo(info)) {
             missingInfoTotal++;
-            control.children[1].classList.add('pendinginfo');
+            control.children[0].children[1].children[0].children[1].children[0].classList.add('pendinginfo');
           } else {
-            control.children[1].classList.add('completedinfo');
+            control.children[0].children[1].children[0].children[1].children[0].classList.add('completedinfo');
           }
         }
       }
@@ -177,5 +180,9 @@ export class AuctionNewComponent implements OnInit {
   checkIsValid() {
     this.areThereImages = this.uploader.queue.length > 0;
     this.isValid = this.isValidCategory && this.areThereImages;
+  }
+
+  onDroped(event: CdkDragDrop<string[]>) {
+    moveItemInArray(this.uploader.queue, event.previousIndex, event.currentIndex);
   }
 }

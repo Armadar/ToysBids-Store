@@ -24,6 +24,9 @@ import { AuctionNewHeaderComponent } from './auction/auction-new-header/auction-
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; 
 import { ToastrModule } from 'ngx-toastr';
 
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -51,7 +54,9 @@ import { ToastrModule } from 'ngx-toastr';
     BsDatepickerModule.forRoot(),
     SelectDropDownModule,
     BrowserAnimationsModule, // required animations module
-    ToastrModule.forRoot() // ToastrModule added
+    ToastrModule.forRoot(),
+    NoopAnimationsModule,
+    DragDropModule
   ],
   providers: [],
   bootstrap: [AppComponent]
