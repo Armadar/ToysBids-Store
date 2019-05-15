@@ -1,35 +1,36 @@
 <div>
   <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-12">
       <div class="form-group">
         <label for="category">Categoria</label>
-        <ngx-select-dropdown id="category" [multiple]="false" (change)="onSelectedCategory($event)" [options]="categories"
-          [config]="{displayKey: 'name', placeholder: 'Seleccionar Categoria'}"></ngx-select-dropdown>
+        <ngx-select-dropdown id="category" [multiple]="false" (change)="onSelectedCategory($event)"
+          [options]="categories" [config]="{displayKey: 'name', placeholder: 'Seleccionar Categoria'}">
+        </ngx-select-dropdown>
       </div>
     </div>
-    <div class="col-md-8">
-    </div>
   </div>
-
   <div class="row">
-    <div class="col-xs-4">
+    <div class="col-md-12">
       <div class="form-group">
         <label for="beginDate">Inicio</label>
         <input id="beginDate" type="text" class="form-control" [minDate]="minDate" #dp="bsDatepicker" bsDatepicker
           [(bsValue)]="myDate" (bsValueChange)="onDateChanged()">
       </div>
     </div>
-    <div class="col-xs-2">
-        <timepicker [showMinutes]="false" [showSeconds]="false" [(ngModel)]="myTime" (ngModelChange)="onTimeChanged()"></timepicker>
+  </div>
+  <div class="row">
+    <div class="col-md-5">
+      <timepicker [showMinutes]="false" [showSeconds]="false" [(ngModel)]="myTime" (ngModelChange)="onTimeChanged()">
+      </timepicker>
     </div>
-    <div class="col-xs-1" style="margin-top:30px;">
+    <div class="col-md-2" style="margin-left:-20px;margin-top:30px">
       <label>Intervalo</label>
     </div>
-    <div class="col-xs-1 form-group" style="margin-top:25px;">
+    <div class="col-md-3 form-group" style="margin-left:10px;margin-top:25px;">
       <ngx-select-dropdown id="interval" [multiple]="false" (change)="onIntervalChanged($event)" [options]="minutes"
         [config]="{placeholder: '2'}"></ngx-select-dropdown>
     </div>
-    <div class="col-xs-1" style="margin-top:30px;">
+    <div class="col-md-1" style="margin-left:-20px;margin-top:30px;">
       minutos
     </div>
   </div>

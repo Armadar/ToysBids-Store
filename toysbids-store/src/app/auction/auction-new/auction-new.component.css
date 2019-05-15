@@ -84,3 +84,10 @@ input[type="file"] {
   height:98px;
   max-width:100px;
 }
+.dropzoneHightlight{
+  background-color: greenyellow;
+}
+.dropzoneFocus{
+  background-color:rgb(154, 235, 32);
+  border:1px solid rgb(9, 133, 19);
+}

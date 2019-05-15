@@ -9,6 +9,7 @@ import { Info } from 'src/app/_model/info';
 import { ToastrService } from 'ngx-toastr';
 
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import * as helper from './../../_helpers/helper'
 
 @Component({
   selector: 'app-auction-new',
@@ -157,6 +158,7 @@ export class AuctionNewComponent implements OnInit {
     this.uploadForm = this.fb.group({
       document: [null, null]
     });
+    helper.avoidDragAndDrop("dropZone");
   }
 
   onChangedCategory(validCategory) {
