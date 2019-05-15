@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { FileUploader } from "ng2-file-upload";
 import { Observable } from "rxjs";
@@ -16,7 +16,13 @@ import * as helper from './../../_helpers/helper'
   templateUrl: './auction-new.component.html',
   styleUrls: ['./auction-new.component.css']
 })
-export class AuctionNewComponent implements OnInit {
+export class AuctionNewComponent implements OnInit, AfterViewInit {
+
+  ngAfterViewInit() {
+    //document.getElementById('auctionNew').style.height = (window.innerHeight - 200).toString() + "px";
+    //this.myInnerHeight = window.innerHeight - 200;
+    //this.refreshUIInfoTime();
+  }
 
   title: string = "Toys Bids";
   uploadForm: FormGroup;
@@ -29,6 +35,7 @@ export class AuctionNewComponent implements OnInit {
   areThereImages = false;
 
   @ViewChild(AuctionNewHeaderComponent) child;
+  myInnerHeight: number;
 
   constructor(private fb: FormBuilder, private http: HttpClient, private toastr: ToastrService) { }
 
