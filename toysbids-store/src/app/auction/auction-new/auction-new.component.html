@@ -1,12 +1,12 @@
-<div style="border:1px dotted orange;height:100%;">
-  <div class="row" style="display:flex;height: 100%;">
-    <div class="col-md-4" style="background-color:rgb(194, 194, 145);height: 100%">
+<div class="height-full">
+  <div class="row height-full" style="display:flex">
+    <div class="col-md-4 height-full border-gray" >
       <app-auction-new-header (emision)="getDateAndTime($event)" (changeCategory)="onChangedCategory($event)">
       </app-auction-new-header>
     </div>
-
-    <form [formGroup]="uploadForm" (ngSubmit)="uploadSubmit()">
-      <div class="col-md-5" style="border: 1px solid red;height: 100%">
+    <div class="col-md-8 height-full border-gray" >
+    <form [formGroup]="uploadForm" (ngSubmit)="uploadSubmit()" class="height-full">
+      <div class="col-md-6 height-full">
         <label for="file-upload" class="custom-file-upload">
           <i class="fa fa-cloud-upload"></i> Seleccionar imagenes
         </label>
@@ -19,7 +19,7 @@
         <br>
         <button class="btn btn-primary" [disabled]="!isValid" type="submit">Cargar Imagenes</button>
       </div>
-      <div class="col-md-7" style="border: 1px solid orange;height: 100%">
+      <div class="col-md-6 height-full">
         <div id="container" style="height:99%" class="list" cdkDropList (cdkDropListDropped)="onDroped($event)" onmousedown="event.preventDefault ? event.preventDefault() : event.returnValue = false">
           <div id={{i+1}} class="box" *ngFor="let item of uploader.queue; let i = index" cdkDrag>
             <div class="row marginToZero" style="height:100px;">
@@ -48,6 +48,7 @@
         </div>
       </div>
     </form>
+  </div>
   </div>
   <div class="row"></div>
 </div>

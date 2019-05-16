@@ -16,13 +16,7 @@ import * as helper from './../../_helpers/helper'
   templateUrl: './auction-new.component.html',
   styleUrls: ['./auction-new.component.css']
 })
-export class AuctionNewComponent implements OnInit, AfterViewInit {
-
-  ngAfterViewInit() {
-    //document.getElementById('auctionNew').style.height = (window.innerHeight - 200).toString() + "px";
-    //this.myInnerHeight = window.innerHeight - 200;
-    //this.refreshUIInfoTime();
-  }
+export class AuctionNewComponent implements OnInit{
 
   title: string = "Toys Bids";
   uploadForm: FormGroup;

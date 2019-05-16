@@ -3,7 +3,13 @@
     border: 1px solid green !important;
 }
 */
-
+.height-full{
+    height:100%;
+}
+.border-gray{
+    border:1px solid gainsboro;
+    margin-right: 5px;
+}
 .border-green {
     border: 1px solid green !important;
 }

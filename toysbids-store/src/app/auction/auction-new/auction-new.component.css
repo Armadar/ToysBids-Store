@@ -20,7 +20,7 @@ input[type="file"] {
    border:1px solid green;
   }
   .list {
-    width:370px;
+    width:100%;
     max-width: 100%;
     border: solid 1px #ccc;
     min-height: 60px;
