@@ -1,8 +1,7 @@
 .drop-zone{
+    height: 98%;
     min-height: 100px;
-    max-width: 95%;
     border: 1px dashed grey;
-    margin-bottom:20px;
   }
 input[type="file"] {
     display: none;

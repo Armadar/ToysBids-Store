@@ -6,9 +6,11 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
   styleUrls: ['./auction.component.css']
 })
 export class AuctionComponent implements AfterViewInit {
-  ngAfterViewInit(): void {
-    this.myInnerHeight = window.innerHeight - 150;
-  }
   myInnerHeight: number;
+
   constructor() { }
+  ngAfterViewInit(): void {
+    let headerPlusFooterHeight = 150;
+    this.myInnerHeight = window.innerHeight - headerPlusFooterHeight;
+  }
 }
