@@ -10,7 +10,7 @@ export class AuctionComponent implements AfterViewInit {
 
   constructor() { }
   ngAfterViewInit(): void {
-    let headerPlusFooterHeight = 150;
+    let headerPlusFooterHeight = 130;
     this.myInnerHeight = window.innerHeight - headerPlusFooterHeight;
   }
 }
