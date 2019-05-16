@@ -1,6 +1,6 @@
 <div class="height-full">
   <div class="row height-full" style="display:flex">
-    <div class="col-md-4 height-full border-gray">
+    <div class="col-md-4 height-full border-gray" style="padding-top:7px">
       <app-auction-new-header (emision)="getDateAndTime($event)" (changeCategory)="onChangedCategory($event)">
       </app-auction-new-header>
     </div>
@@ -16,16 +16,19 @@
             <br>
           </div>
           <div class="row" style="height:84%">
-            <div id="dropZone" ng2FileDrop [uploader]="uploader" class="drop-zone" style="text-align: center;padding-top:60%">
+            <div id="dropZone" ng2FileDrop [uploader]="uploader" class="drop-zone"
+              style="text-align: center;padding-top:60%">
               Arrastrar imagenes
             </div>
           </div>
           <div class="row" style="height:7%">
-            <button class="btn btn-primary" [disabled]="!isValid" type="submit">Cargar Imagenes</button>
+            <button class="btn btn-primary save-auction" [disabled]="!isValid" type="submit">
+                <i class="fa fa-floppy-o" style="margin-left:-20px"></i> Guardar imagenes
+            </button>
           </div>
         </div>
         <div class="col-md-6 height-full">
-          <div id="container" style="height:99%" class="list" cdkDropList (cdkDropListDropped)="onDroped($event)"
+          <div id="container" class="list" cdkDropList (cdkDropListDropped)="onDroped($event)"
             onmousedown="event.preventDefault ? event.preventDefault() : event.returnValue = false">
             <div id={{i+1}} class="box" *ngFor="let item of uploader.queue; let i = index" cdkDrag>
               <div class="row marginToZero" style="height:100px;">
