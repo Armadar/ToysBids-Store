@@ -16,7 +16,7 @@ import * as helper from './../../_helpers/helper'
   templateUrl: './auction-new.component.html',
   styleUrls: ['./auction-new.component.css']
 })
-export class AuctionNewComponent implements OnInit{
+export class AuctionNewComponent implements OnInit {
 
   title: string = "Toys Bids";
   uploadForm: FormGroup;
@@ -68,6 +68,7 @@ export class AuctionNewComponent implements OnInit{
     console.log(`the index ${id} just has been removed`);
     console.log(this.info);
     this.checkIsValid();
+    this.refreshUIInfoTime();
   }
   isValidInfo() {
     let missingInfoTotal = 0;
@@ -151,7 +152,7 @@ export class AuctionNewComponent implements OnInit{
   }
 
   uploadSubmitMessage() {
-    console.log(`Selected Category: ${this.child.selectedCategory} Selected Date: ${this.child.selectedDate} Selected Time: ${this.child.selectedTime} Selected Time: ${this.child.selectedInterval}`);
+    console.log(`Selected Category: ${this.child.selectedCategory} Selected Date: ${this.child.selectedDate} Selected Time: ${this.child.selectedTime} Selected Interval: ${this.child.selectedInterval}`);
   }
   getDateAndTime(event) { }
 
@@ -168,6 +169,7 @@ export class AuctionNewComponent implements OnInit{
   }
 
   onFileChanged(event) {
+    /*
     var hour = 9;//moment(this.mytime).get('hour');
     var start = moment('2019-05-06').add(hour, 'hour');
     var minuteStep = 2;
@@ -176,7 +178,9 @@ export class AuctionNewComponent implements OnInit{
     for (let i = 0; i < this.uploader.queue.length; i++) {
       list.push(moment(start).add(i * minuteStep, 'minute').toString());
     }
-
+*/
+    console.log('FILE CHANGED !!!' + new Date().getTime());
+    this.refreshUIInfoTime();
     this.checkIsValid();
   }
 
@@ -187,5 +191,36 @@ export class AuctionNewComponent implements OnInit{
 
   onDroped(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.uploader.queue, event.previousIndex, event.currentIndex);
+    this.refreshUIInfoTime();
   }
+
+  refreshUIInfoTime() {
+    this.uploadSubmitMessage();
+    setTimeout(() => {
+      let publications = Array.from(document.getElementById('container').children);
+      let c = 0;
+      var start = moment(this.child.selectedDate).add(this.child.selectedTime, 'hour');
+      
+      var control;
+      publications.forEach((publication) => {
+        publication.children[0].children[1].children[1].children[0].innerHTML = this.getPublicationTime(start, c);
+        control = publication.children[0];
+        this.highLightTimeRange(control, c);
+        c++;
+      });
+    }, 500);
+  }
+
+  getPublicationTime(start: any, index: number) {
+    return moment(start).add(index * this.child.selectedInterval, 'minute').format('LT');
+  }
+  highLightTimeRange(ctrl: any, index: number) {
+    if (ctrl != undefined) {
+      if (index % 5 === 0) {
+        ctrl.classList.add('border-green');
+      }
+      else { ctrl.classList.remove('border-green'); }
+    }
+  }
+
 }

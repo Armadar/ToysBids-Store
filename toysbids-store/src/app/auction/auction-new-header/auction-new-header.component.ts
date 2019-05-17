@@ -5,7 +5,7 @@ import { esLocale } from 'ngx-bootstrap/locale';
 
 import { Category } from 'src/app/_model/category';
 import * as moment from 'moment';
-import { ValueTransformer } from '@angular/compiler/src/util';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-auction-new-header',
@@ -24,7 +24,7 @@ export class AuctionNewHeaderComponent {
 
   values: any[]
 
-  constructor(private _localeService: BsLocaleService) {
+  constructor(private _localeService: BsLocaleService, private datePipe: DatePipe) {
     defineLocale('es', esLocale);
     this._localeService.use('es');
   }
@@ -32,7 +32,7 @@ export class AuctionNewHeaderComponent {
   @Output() emision: EventEmitter<any[]> = new EventEmitter<any[]>();
   @Output() changeCategory: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-  getSelectedDate() { return moment(this.myDate).format('L'); }
+  getSelectedDate() { return this.datePipe.transform((moment(this.myDate).format('L')), "yyyy-MM-dd"); }
   getSelectedTime() { return moment(this.myTime).get('hour'); }
 
   getInitHour() {

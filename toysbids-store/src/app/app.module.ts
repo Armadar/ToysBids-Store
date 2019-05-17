@@ -26,6 +26,7 @@ import { ToastrModule } from 'ngx-toastr';
 
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import {DatePipe} from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     NoopAnimationsModule,
     DragDropModule
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

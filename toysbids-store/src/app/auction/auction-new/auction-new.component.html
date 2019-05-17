@@ -28,8 +28,7 @@
           </div>
         </div>
         <div class="col-md-6 height-full">
-          <div id="container" class="list" cdkDropList (cdkDropListDropped)="onDroped($event)"
-            onmousedown="event.preventDefault ? event.preventDefault() : event.returnValue = false">
+          <div id="container" class="list" cdkDropList (cdkDropListDropped)="onDroped($event)">
             <div id={{i+1}} class="box" *ngFor="let item of uploader.queue; let i = index" cdkDrag>
               <div class="row marginToZero" style="height:100px;">
                 <div class="col-sm-5">
