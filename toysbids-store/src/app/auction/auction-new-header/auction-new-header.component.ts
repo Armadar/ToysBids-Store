@@ -79,11 +79,12 @@ export class AuctionNewHeaderComponent {
   }
   onIntervalChanged(x) {
     this.selectedInterval = x.value;
+    this.raiseEvent();
   }
 
   raiseEvent() {
     this.values = [];
-    this.values.push(moment(this.myDate).format('L'));
+    this.values.push(this.datePipe.transform((moment(this.myDate).format('L')), "yyyy-MM-dd"));
     this.values.push(moment(this.myTime).get('hour'));
     this.emision.emit(this.values);
   }

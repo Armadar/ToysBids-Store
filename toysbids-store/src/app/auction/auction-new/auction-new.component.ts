@@ -154,13 +154,25 @@ export class AuctionNewComponent implements OnInit {
   uploadSubmitMessage() {
     console.log(`Selected Category: ${this.child.selectedCategory} Selected Date: ${this.child.selectedDate} Selected Time: ${this.child.selectedTime} Selected Interval: ${this.child.selectedInterval}`);
   }
-  getDateAndTime(event) { }
+  onChildDateAndTimeChanged(event) {
+    this.refreshUIInfoTime();
+  }
 
   ngOnInit() {
     this.uploadForm = this.fb.group({
       document: [null, null]
     });
     helper.avoidDragAndDrop("dropZone");
+    this.whenAnImageIsDropped();
+  }
+
+  whenAnImageIsDropped() {
+    let dropZone = document.getElementById('dropZone');
+    dropZone.addEventListener('drop', (e) => {
+      this.refreshUIInfoTime();
+      dropZone.classList.remove('dropzoneHightlight');
+      dropZone.classList.remove('dropzoneFocus');
+    });
   }
 
   onChangedCategory(validCategory) {
@@ -169,16 +181,6 @@ export class AuctionNewComponent implements OnInit {
   }
 
   onFileChanged(event) {
-    /*
-    var hour = 9;//moment(this.mytime).get('hour');
-    var start = moment('2019-05-06').add(hour, 'hour');
-    var minuteStep = 2;
-    var count = 5;
-    var list = [];
-    for (let i = 0; i < this.uploader.queue.length; i++) {
-      list.push(moment(start).add(i * minuteStep, 'minute').toString());
-    }
-*/
     console.log('FILE CHANGED !!!' + new Date().getTime());
     this.refreshUIInfoTime();
     this.checkIsValid();
@@ -189,7 +191,7 @@ export class AuctionNewComponent implements OnInit {
     this.isValid = this.isValidCategory && this.areThereImages;
   }
 
-  onDroped(event: CdkDragDrop<string[]>) {
+  onDropedWithInZone(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.uploader.queue, event.previousIndex, event.currentIndex);
     this.refreshUIInfoTime();
   }
@@ -200,7 +202,7 @@ export class AuctionNewComponent implements OnInit {
       let publications = Array.from(document.getElementById('container').children);
       let c = 0;
       var start = moment(this.child.selectedDate).add(this.child.selectedTime, 'hour');
-      
+
       var control;
       publications.forEach((publication) => {
         publication.children[0].children[1].children[1].children[0].innerHTML = this.getPublicationTime(start, c);

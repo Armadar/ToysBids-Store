@@ -1,7 +1,8 @@
 <div class="height-full">
   <div class="row height-full" style="display:flex">
     <div class="col-md-4 height-full border-gray" style="padding-top:7px">
-      <app-auction-new-header (emision)="getDateAndTime($event)" (changeCategory)="onChangedCategory($event)">
+      <app-auction-new-header (emision)="onChildDateAndTimeChanged($event)"
+        (changeCategory)="onChangedCategory($event)">
       </app-auction-new-header>
     </div>
     <div class="col-md-8 height-full border-gray">
@@ -23,12 +24,12 @@
           </div>
           <div class="row" style="height:7%">
             <button class="btn btn-primary save-auction" [disabled]="!isValid" type="submit">
-                <i class="fa fa-floppy-o" style="margin-left:-20px"></i> Guardar imagenes
+              <i class="fa fa-floppy-o" style="margin-left:-20px"></i> Guardar imagenes
             </button>
           </div>
         </div>
         <div class="col-md-6 height-full">
-          <div id="container" class="list" cdkDropList (cdkDropListDropped)="onDroped($event)">
+          <div id="container" class="list" cdkDropList (cdkDropListDropped)="onDropedWithInZone($event)">
             <div id={{i+1}} class="box" *ngFor="let item of uploader.queue; let i = index" cdkDrag>
               <div class="row marginToZero" style="height:100px;">
                 <div class="col-sm-5">
@@ -37,7 +38,7 @@
                 <div class="col-sm-6 marginToZero margin5">
                   <div class="row">
                     <div class="col-sm-3">
-                      <label style="margin-top:5px;margin-right:10px;font-weight:300 !important;">Base</label>
+                      <label style="margin-top:5px;margin-right:10px;font-weight:100 !important;">Base</label>
                     </div>
                     <div class="col-sm-3">
                       <input class="form-control form-control-sm price" placeholder="0.00" id="precio" type="text"
@@ -45,9 +46,9 @@
                         (focusout)="onSetPrice($event.target.parentElement.parentElement.parentElement.parentElement.parentElement.id,$event.target.value)">
                     </div>
                   </div>
-                  <div class="row" style="margin-top:10px;margin-left:30px;color:rgba(68, 122, 174, 0.87)">
-                    <label></label>
-                    <i class="fa fa-trash" style="color:red;font-size: 1.5em" title="Eliminar"
+                  <div class="row" style="margin-top:10px;margin-left:40px;color:rgba(68, 122, 174, 0.87)">
+                    <label style="font-weight:100 !important;margin-right:10px;width:60px"></label>
+                    <i class="fa fa-trash" style="color:red;font-size: 1.5em;cursor:pointer" title="Eliminar"
                       (click)="item.remove();onRemoveItem($event.target.parentElement.id)"></i>
                   </div>
                 </div>

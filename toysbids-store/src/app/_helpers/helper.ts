@@ -1,11 +1,7 @@
-export function sum(a: number, b: number): number {
-    return a + b;
-}
-
 export function avoidDragAndDrop(dropzoneId: string) {
     window.addEventListener("dragenter", function (e) {
         document.getElementById(dropzoneId).classList.add('dropzoneHightlight');
-        document.getElementById(dropzoneId).classList.add('dropzoneFocus');
+        document.getElementById(dropzoneId).classList.add('dropzoneFocus');        
         if ((<HTMLInputElement>e.target).id != dropzoneId) {
             e.preventDefault();
             e.dataTransfer.effectAllowed = "none";
