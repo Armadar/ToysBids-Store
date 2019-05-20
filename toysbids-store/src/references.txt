@@ -1,0 +1,8 @@
+https://www.c-sharpcorner.com/article/implement-infinite-scrolling-using-angular-6/
+
+https://www.c-sharpcorner.com/article/infinite-scroll-in-angular-7-using-web-api-and-sql-server/
+https://devdactic.com/ionic-scroll-performance/
+https://www.c-sharpcorner.com/article/angular-virtual-scrolling-ngvirtualscrolling/
+
+https://randomuser.me/api/?results=2&page=1
+https://www.themoviedb.org/documentation/api
