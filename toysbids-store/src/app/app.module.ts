@@ -27,6 +27,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import {DatePipe} from '@angular/common';
+import { AuctionService } from './_services/auction.service';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,7 @@ import {DatePipe} from '@angular/common';
     NoopAnimationsModule,
     DragDropModule
   ],
-  providers: [DatePipe],
+  providers: [DatePipe,AuctionService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
