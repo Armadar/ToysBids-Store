@@ -27,6 +27,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import {DatePipe} from '@angular/common';
+import {ScrollingModule} from '@angular/cdk/scrolling';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import {DatePipe} from '@angular/common';
     BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot(),
     NoopAnimationsModule,
-    DragDropModule
+    DragDropModule,
+    ScrollingModule
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]

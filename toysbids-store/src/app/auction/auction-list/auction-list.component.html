@@ -1,1 +1,8 @@
-<div class="height-full border-gray" style="margin-left:25px">auction list</div>
+<div class="height-full border-gray" style="margin-left:25px">
+    <cdk-virtual-scroll-viewport itemSize="50" id="container" class="height-full">
+        <div *cdkVirtualFor="let item of ds;" class="list-group-item">
+            <div class="state">{{item.name}}</div>
+            <div class="capital">{{item.capital}}</div>
+        </div>
+    </cdk-virtual-scroll-viewport>
+</div>
