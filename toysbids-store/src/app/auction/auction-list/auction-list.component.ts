@@ -11,6 +11,7 @@ export class AuctionListComponent implements OnInit {
   auctions: Auction[] = [];
   page = 1;
   showLoadingIcon = true;
+  auctionsCount = 0;
 
   constructor(private auctionService: AuctionService) {
   }
@@ -28,6 +29,7 @@ export class AuctionListComponent implements OnInit {
         this.auctions.push(new Auction(1, item.name.first, item.email));
       });
       this.showLoadingIcon = false;
+      this.auctionsCount = this.auctions.length;
     }
   }
   onScroll() {
@@ -35,9 +37,10 @@ export class AuctionListComponent implements OnInit {
     this.page = this.page + 1;
     this.getAuctions();
   }
-  onSelectedItem(target) {
+  onSelectedItem(target,x) {
     this.unselectedItems();
     target.classList.add("itemSelected");
+    console.log(x);
   }
   unselectedItems() {
     let publications = Array.from(document.getElementById('container').children);
