@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuctionService } from 'src/app/_services/auction.service';
+import { Auction } from 'src/app/_model/auction';
 
 @Component({
   selector: 'app-auction-list',
@@ -7,49 +8,41 @@ import { AuctionService } from 'src/app/_services/auction.service';
   styleUrls: ['./auction-list.component.css']
 })
 export class AuctionListComponent implements OnInit {
-  users = [];
+  auctions: Auction[] = [];
   page = 1;
-  maximumPages = 3;
+  showLoadingIcon = true;
 
   constructor(private auctionService: AuctionService) {
   }
 
   ngOnInit() {
-    this.getPhotos();
+    this.getAuctions();
   }
 
-  getPhotos() {
-    console.log(this.page);
+  getAuctions() {
     this.auctionService.getAuctions(this.page).subscribe((res) => this.onSuccess(res));
   }
-
-  // When we got data on a success  
   onSuccess(res) {
-    console.log(res);
     if (res != undefined) {
-      /*
-      res.forEach(item => {  
-        this.myPhotosList.push(new PhotosObj(item));  
-      });  
-*/
-      this.users = res['results'];
+      res['results'].forEach(item => {
+        this.auctions.push(new Auction(1, item.name.first, item.email));
+      });
+      this.showLoadingIcon = false;
     }
   }
-
-  // When scroll down the screen  
   onScroll() {
-    console.log("Scrolled");
+    this.showLoadingIcon = true;
     this.page = this.page + 1;
-    this.getPhotos();
+    this.getAuctions();
   }
-
-
-  onSelectedItem(event) {
-    let publications = Array.from(document.getElementById('container').children[0].children);
+  onSelectedItem(target) {
+    this.unselectedItems();
+    target.classList.add("itemSelected");
+  }
+  unselectedItems() {
+    let publications = Array.from(document.getElementById('container').children);
     publications.forEach((publication) => {
       publication.classList.remove("itemSelected");
     });
-
-    event.srcElement.parentNode.classList.add("itemSelected");
   }
 }

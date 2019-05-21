@@ -1,0 +1,36 @@
+.list-container {
+    overflow-y: scroll;
+    height: 90%;
+}
+
+.list-group-item {
+    border: 1px solid gainsboro;
+    margin: 0 !important;
+    padding: 0 10px !important;
+    height: 100px;
+}
+
+.list-group-item>* {
+    pointer-events: none;
+}
+
+.title {
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.subtitle {
+    font-size: 14px;
+    height: 30px;
+}
+
+.state-item {
+    height: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.itemSelected {
+    background-color: red;
+}

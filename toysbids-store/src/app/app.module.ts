@@ -28,6 +28,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import {DatePipe} from '@angular/common';
 import { AuctionService } from './_services/auction.service';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { AuctionService } from './_services/auction.service';
     BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot(),
     NoopAnimationsModule,
-    DragDropModule
+    DragDropModule,
+    InfiniteScrollModule
   ],
   providers: [DatePipe,AuctionService],
   bootstrap: [AppComponent]

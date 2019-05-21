@@ -9,6 +9,6 @@ export class AuctionService {
   constructor(private http:HttpClient) { }
 
   getAuctions(page:number){
-    return this.http.get(`https://randomuser.me/api/?results=20&page=${page}`);  
+    return this.http.get(`https://randomuser.me/api/?results=10&page=${page}`);  
   }
 }

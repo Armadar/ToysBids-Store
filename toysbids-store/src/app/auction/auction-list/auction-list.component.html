@@ -1,2 +1,13 @@
 <div class="height-full border-gray" style="margin-left:25px">
+    <div style="height:10%">
+        <p>Spinning:</p>
+        <i class="fa fa-circle-o-notch fa-pulse" style="font-size:20px;color:rgb(51, 74, 109)" *ngIf="showLoadingIcon"></i>
+    </div>
+
+    <div id="container" infiniteScroll [infiniteScrollDistance]="1" [infiniteScrollThrottle]="300" (scrolled)="onScroll()" [scrollWindow]="false" class="list-container">
+        <div *ngFor="let item of auctions;let i = index" class="list-group-item" (click)="onSelectedItem($event.target)">
+            <div class="title">{{i+1}} {{item.title}}</div>
+            <div class="subtitle">{{item.subtitle}}</div>
+        </div>
+    </div>
 </div>
