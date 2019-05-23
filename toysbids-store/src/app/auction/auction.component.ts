@@ -5,16 +5,18 @@ import { Component, AfterViewChecked, OnInit } from '@angular/core';
   templateUrl: './auction.component.html',
   styleUrls: ['./auction.component.css']
 })
-export class AuctionComponent implements AfterViewChecked, OnInit {
+export class AuctionComponent implements OnInit {
   myInnerHeight: number = 100;
+
   ngOnInit(): void {
     let headerPlusFooterHeight = 130;
     this.myInnerHeight = window.innerHeight - headerPlusFooterHeight;
   }
 
-
   constructor() { }
-  ngAfterViewChecked(): void {
 
+  onSelectedAuction(x){    
+    console.log(`comes from component: ${x}`);
+    
   }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { AuctionService } from 'src/app/_services/auction.service';
 import { Auction } from 'src/app/_model/auction';
 import * as moment from 'moment';
@@ -13,6 +13,8 @@ export class AuctionListComponent implements OnInit {
   page = 1;
   showLoadingIcon = true;
   auctionsCount = 0;
+
+  @Output() selectedAuction: EventEmitter<number> = new EventEmitter<number>();
 
   constructor(private auctionService: AuctionService) {
   }
@@ -42,10 +44,10 @@ export class AuctionListComponent implements OnInit {
     this.page = this.page + 1;
     this.getAuctions();
   }
-  onSelectedItem(target, x) {
+  onSelectedItem(target, id: number) {
+    this.selectedAuction.emit(id);
     this.unselectedItems();
     target.classList.add("itemSelected");
-    console.log(x);
   }
   unselectedItems() {
     let publications = Array.from(document.getElementById('container').children);

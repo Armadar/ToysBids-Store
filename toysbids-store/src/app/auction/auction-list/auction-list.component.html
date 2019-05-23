@@ -5,8 +5,8 @@
     </div>
 
     <div id="container" infiniteScroll [infiniteScrollDistance]="1" [infiniteScrollThrottle]="300" (scrolled)="onScroll()" [scrollWindow]="false" class="list-container">
-        <div *ngFor="let item of auctions;let i = index" class="list-group-item" (click)="onSelectedItem($event.target,$event.target.childNodes[0].id)">
-            <div id={{i+1}} class="category">{{item.category}}</div>
+        <div id={{i+1}} *ngFor="let item of auctions;let i = index" class="list-group-item" (click)="onSelectedItem($event.target,$event.target.id)">
+            <div class="category">{{item.category}}</div>
             <div class="range">{{item.range}}</div>
             <div class="count">{{item.count}} articulos</div>
         </div>

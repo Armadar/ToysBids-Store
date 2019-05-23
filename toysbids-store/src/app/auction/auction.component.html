@@ -1,8 +1,8 @@
 <div class="row" [style.height.px]="myInnerHeight">
-  <div class="col-md-3 height-full">
-    <app-auction-list></app-auction-list>
-  </div>
-  <div class="col-md-9 height-full">
-    <router-outlet></router-outlet>
-  </div>
+    <div class="col-md-3 height-full">
+        <app-auction-list (selectedAuction)="onSelectedAuction($event)"></app-auction-list>
+    </div>
+    <div class="col-md-9 height-full">
+        <router-outlet></router-outlet>
+    </div>
 </div>
