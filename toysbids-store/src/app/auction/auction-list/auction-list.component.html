@@ -2,6 +2,7 @@
     <div style="height:10%;background-color: rgb(209, 230, 255)">
         <p>Spinning: {{auctionsCount}}</p>
         <i class="fa fa-circle-o-notch fa-pulse" style="font-size:20px;color:rgb(51, 74, 109)" *ngIf="showLoadingIcon"></i>
+        <button class="btn btn-success" (click)="createNewAuction()">+</button>
     </div>
 
     <div id="container" infiniteScroll [infiniteScrollDistance]="1" [infiniteScrollThrottle]="300" (scrolled)="onScroll()" [scrollWindow]="false" class="list-container">

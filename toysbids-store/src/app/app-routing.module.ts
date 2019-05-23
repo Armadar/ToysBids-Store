@@ -10,7 +10,7 @@ import { AuctionBeginComponent } from './auction/auction-begin/auction-begin.com
 const appRoutes: Routes = [
   {
     path: 'auction', component: AuctionComponent  , children: [
-      { path: '', component: AuctionNewComponent },// Bienvenida
+      { path: '', component: AuctionDetailComponent },// Bienvenida
       { path: 'new', component: AuctionNewComponent },// Formulario de registro
       { path: ':id', component: AuctionDetailComponent },// Mostrar informacion del plato enviado por la URL, : significa ruta dinamica
     ]

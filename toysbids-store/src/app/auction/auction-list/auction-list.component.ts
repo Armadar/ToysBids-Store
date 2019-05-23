@@ -1,5 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { AuctionService } from 'src/app/_services/auction.service';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Auction } from 'src/app/_model/auction';
 import * as moment from 'moment';
 
@@ -16,7 +17,8 @@ export class AuctionListComponent implements OnInit {
 
   @Output() selectedAuction: EventEmitter<number> = new EventEmitter<number>();
 
-  constructor(private auctionService: AuctionService) {
+  constructor(private auctionService: AuctionService,private router: Router,
+    private route: ActivatedRoute) {
   }
 
   ngOnInit() {
@@ -58,5 +60,9 @@ export class AuctionListComponent implements OnInit {
 
   generateRange(from: Date, to: Date, ) {
     return `del ${moment(from).format("MMM Do YY")} al ${moment(to).format("MMM Do YY")}`;
+  }
+
+  createNewAuction() {
+    this.router.navigate(['new'], { relativeTo: this.route })
   }
 }
