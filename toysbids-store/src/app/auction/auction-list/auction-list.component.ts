@@ -52,7 +52,7 @@ export class AuctionListComponent implements OnInit {
     target.classList.add("itemSelected");
   }
   unselectedItems() {
-    let publications = Array.from(document.getElementById('container').children);
+    let publications = Array.from(document.getElementById('container-auctions').children);
     publications.forEach((publication) => {
       publication.classList.remove("itemSelected");
     });

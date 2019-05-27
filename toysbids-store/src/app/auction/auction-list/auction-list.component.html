@@ -5,7 +5,7 @@
         <button class="btn btn-success" (click)="createNewAuction()">+</button>
     </div>
 
-    <div id="container" infiniteScroll [infiniteScrollDistance]="1" [infiniteScrollThrottle]="300" (scrolled)="onScroll()" [scrollWindow]="false" class="list-container">
+    <div id="container-auctions" infiniteScroll [infiniteScrollDistance]="1" [infiniteScrollThrottle]="300" (scrolled)="onScroll()" [scrollWindow]="false" class="list-container">
         <div id={{i+1}} *ngFor="let item of auctions;let i = index" class="list-group-item" [attr.data-index]="i" style="cursor: pointer" [routerLink]="[i+1]" routerLinkActive="itemSelected">
             <div class="category">{{item.category}}</div>
             <div class="range">{{item.range}}</div>
