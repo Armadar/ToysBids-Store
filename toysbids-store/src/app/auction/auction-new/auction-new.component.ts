@@ -218,10 +218,10 @@ export class AuctionNewComponent implements OnInit {
   }
   highLightTimeRange(ctrl: any, index: number) {
     if (ctrl != undefined) {
-      if (index % 5 === 0) {
-        ctrl.classList.add('border-green');
+      if (index % 15 === 0 && (index != 0)) {
+        ctrl.classList.add('border-publication');
       }
-      else { ctrl.classList.remove('border-green'); }
+      else { ctrl.classList.remove('border-publication'); }
     }
   }
 
