@@ -1,63 +1,57 @@
 <div class="height-full">
-  <div class="row height-full" style="display:flex">
-    <div class="col-md-4 height-full border-gray" style="padding-top:7px">
-      <app-auction-new-header (emision)="onChildDateAndTimeChanged($event)"
-        (changeCategory)="onChangedCategory($event)">
-      </app-auction-new-header>
-    </div>
-    <div class="col-md-8 height-full border-gray">
-      <form [formGroup]="uploadForm" (ngSubmit)="uploadSubmit()" class="height-full">
-        <div class="col-md-6 height-full">
-          <div class="row" style="height:7%;margin-top:7px">
-            <label for="file-upload" class="custom-file-upload">
+    <div class="row height-full" style="display:flex">
+        <div class="col-md-4 height-full border-gray" style="padding-top:7px">
+            <app-auction-new-header (emision)="onChildDateAndTimeChanged($event)" (changeCategory)="onChangedCategory($event)">
+            </app-auction-new-header>
+        </div>
+        <div class="col-md-8 height-full border-gray">
+            <form [formGroup]="uploadForm" (ngSubmit)="saveMassiveAcutions()" class="height-full">
+                <div class="col-md-6 height-full">
+                    <div class="row" style="height:7%;margin-top:7px">
+                        <label for="file-upload" class="custom-file-upload">
               <i class="fa fa-cloud-upload"></i> Seleccionar imagenes
             </label>
-            <input (change)="onFileChanged($event)" formControlName="document" id="file-upload" type="file"
-              ng2FileSelect accept="image/png,image/jpeg,image/jpg" [uploader]="uploader" multiple /><br />
-            <br>
-          </div>
-          <div class="row" style="height:84%">
-            <div id="dropZone" ng2FileDrop [uploader]="uploader" class="drop-zone"
-              style="text-align: center;padding-top:60%">
-              Arrastrar imagenes
-            </div>
-          </div>
-          <div class="row" style="height:7%">
-            <button class="btn btn-primary save-auction" [disabled]="!isValid" type="submit">
+                        <input (change)="onFileChanged($event)" formControlName="document" id="file-upload" type="file" ng2FileSelect accept="image/png,image/jpeg,image/jpg" [uploader]="uploader" multiple /><br />
+                        <br>
+                    </div>
+                    <div class="row" style="height:84%">
+                        <div id="dropZone" ng2FileDrop [uploader]="uploader" class="drop-zone" style="text-align: center;padding-top:60%">
+                            Arrastrar imagenes
+                        </div>
+                    </div>
+                    <div class="row" style="height:7%">
+                        <button class="btn btn-primary save-auction" [disabled]="!isValid" type="submit">
               <i class="fa fa-floppy-o" style="margin-left:-20px"></i> Guardar imagenes
             </button>
-          </div>
-        </div>
-        <div class="col-md-6 height-full">
-          <div id="container" class="list" cdkDropList (cdkDropListDropped)="onDropedWithInZone($event)">
-            <div id={{i+1}} class="box" *ngFor="let item of uploader.queue; let i = index" cdkDrag>
-              <div class="row marginToZero" style="height:100px;">
-                <div class="col-sm-5">
-                  <img src="" imgPreview [image]="item?._file" class="media-object publicationImage" />
-                </div>
-                <div class="col-sm-6 marginToZero margin5">
-                  <div class="row">
-                    <div class="col-sm-3">
-                      <label style="margin-top:5px;margin-right:10px;font-weight:100 !important;">Base</label>
                     </div>
-                    <div class="col-sm-3">
-                      <input class="form-control form-control-sm price" placeholder="0.00" id="precio" type="text"
-                        value={{item.description}}
-                        (focusout)="onSetPrice($event.target.parentElement.parentElement.parentElement.parentElement.parentElement.id,$event.target.value)">
-                    </div>
-                  </div>
-                  <div class="row" style="margin-top:10px;margin-left:40px;color:rgba(68, 122, 174, 0.87)">
-                    <label style="font-weight:100 !important;margin-right:10px;width:60px"></label>
-                    <i class="fa fa-trash" style="color:red;font-size: 1.5em;cursor:pointer" title="Eliminar"
-                      (click)="item.remove();onRemoveItem($event.target.parentElement.id)"></i>
-                  </div>
                 </div>
-              </div>
-            </div>
-          </div>
+                <div class="col-md-6 height-full">
+                    <div id="container" class="list" cdkDropList (cdkDropListDropped)="onDroppedWithInZone($event)">
+                        <div id=pub{{i+1}} class="box" *ngFor="let item of uploader.queue; let i = index" cdkDrag>
+                            <div class="row marginToZero" style="height:100px;">
+                                <div class="col-sm-5">
+                                    <img src="" imgPreview [image]="item?._file" class="media-object publicationImage" />
+                                </div>
+                                <div class="col-sm-6 marginToZero margin5">
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <label style="margin-top:5px;margin-right:10px;font-weight:100 !important;">Base</label>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <input class="form-control form-control-sm price" placeholder="0.00" id="precio" type="text" value={{item.description}}>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="margin-top:10px;margin-left:40px;color:rgba(68, 122, 174, 0.87)">
+                                        <label style="font-weight:100 !important;margin-right:10px;width:60px"></label>
+                                        <i class="fa fa-trash" style="color:red;font-size: 1.5em;cursor:pointer" title="Eliminar" (click)="item.remove();onRemoveItem()"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
         </div>
-      </form>
     </div>
-  </div>
-  <div class="row"></div>
+    <div class="row"></div>
 </div>

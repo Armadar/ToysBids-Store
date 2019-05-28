@@ -24,11 +24,11 @@ input[type="file"] {
 }
 
 .pendinginfo {
-    border: 1px solid red;
+    border: 1px solid indianred;
 }
 
 .completedinfo {
-    border: 1px solid green;
+    border: 1px solid #469a1f;
 }
 
 .list {
@@ -81,7 +81,7 @@ input[type="file"] {
 }
 
 .border-green {
-    border-bottom: 2px solid green !important;
+    border-bottom: 2px solid #469a1f !important;
 }
 
 .marginToZero {
@@ -108,10 +108,6 @@ input[type="file"] {
 .dropzoneFocus {
     background-color: rgb(154, 235, 32);
     border: 1px solid rgb(9, 133, 19);
-}
-
-.border-green {
-    border-bottom: 2px solid green !important;
 }
 
 .border-publication {

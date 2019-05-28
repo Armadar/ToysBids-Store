@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, ɵConsole } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { FileUploader } from "ng2-file-upload";
 import { Observable } from "rxjs";
@@ -20,7 +20,6 @@ export class AuctionNewComponent implements OnInit {
 
   title: string = "Toys Bids";
   uploadForm: FormGroup;
-  info: Info[] = new Array();
   public uploader: FileUploader = new FileUploader({
     isHTML5: true
   });
@@ -33,73 +32,58 @@ export class AuctionNewComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private http: HttpClient, private toastr: ToastrService) { }
 
-
-  onSetPrice(id: any, value: string): void {
-    console.log('on SetPrice', `ID: ${id} value: ${value}`);
-    /* var elemId = event.explicitOriginalTarget.id; document.getElementById(elemId).classList.remove('focused');*/
-    if (!this.info.some(e => e.index === id)) {
-      this.info.push(new Info(id, value, ''));
-      // does not exist
-    }
-    else {
-      this.info.forEach(e => {
-        if (e.index === id) {
-          e.precio = value;
-        }
-      })
-    }
-    console.log(this.info);
-  }
   getItemInfoById(id: any) {
-    return this.info.find(e => e.index.toString() === id.toString());
-  }
-  onRemoveItem(id: any): void {
-    /* var elemId = event.explicitOriginalTarget.id; document.getElementById(elemId).classList.remove('focused');*/
-    if (this.info.length != id) {
-      this.info.forEach(i => {
-        if (i.index >= id && i.index < this.info.length) {
-          this.info[i.index - 1].precio = this.info[i.index].precio;
-          this.info[i.index - 1].description = this.info[i.index].description;
-        }
-      });
-    }
-    this.info.pop();
+    let info: Info = new Info(0, '', '');
 
-    console.log(`the index ${id} just has been removed`);
-    console.log(this.info);
+    for (let i = 1; i <= this.uploader.queue.length; i++) {
+      if (i === id) {
+        let controlItem = document.getElementById('pub' + i.toString());
+
+        if (controlItem != undefined) {
+          let basePrice = (<HTMLInputElement>(controlItem.children[0].children[1].children[0].children[1].children[0])).value;
+          info.precio = basePrice;
+        }
+      }
+    }
+
+    return info;
+  }
+
+  onRemoveItem(): void {
     this.checkIsValid();
     this.refreshUIInfoTime();
   }
+
+  getpublicationID(id: string) {
+    return id.toString().substring(3);
+  }
+
   isValidInfo() {
     let missingInfoTotal = 0;
 
     for (let i = 1; i <= this.uploader.queue.length; i++) {
-      console.log(i);
-      var info = this.getItemInfoById(i);
-      var control = document.getElementById(i.toString());
-      console.log(info);
-      if (info === undefined) {
-        missingInfoTotal++;
-        if (control != undefined) {
-          control.children[0].children[1].children[0].children[1].children[0].classList.add('pendinginfo');
-        }
-      } else {
-        if (control != undefined) {
-          if (this.isMissingInfo(info)) {
+
+      var controlItem = document.getElementById('pub' + i.toString());
+      if (controlItem != undefined) {
+        let controlBasePrice = controlItem.children[0].children[1].children[0].children[1].children[0];
+        if (controlBasePrice != undefined) {
+          let basePrice = (<HTMLInputElement>(controlBasePrice)).value;
+          if (this.isValidBasePrice(basePrice)) {
             missingInfoTotal++;
-            control.children[0].children[1].children[0].children[1].children[0].classList.add('pendinginfo');
-          } else {
-            control.children[0].children[1].children[0].children[1].children[0].classList.add('completedinfo');
+            controlBasePrice.classList.add('pendinginfo');
+          }
+          else {
+            controlBasePrice.classList.add('completedinfo');
           }
         }
       }
     }
     return missingInfoTotal > 0 ? false : true;
   }
-  isMissingInfo(info: Info) {
-    return info.precio === undefined || info.precio === null || info.precio.length === 0 || isNaN(Number(info.precio));
+  isValidBasePrice(val: any) {
+    return val === undefined || val === null || val.length === 0 || isNaN(Number(val));
   }
-  uploadSubmit() {
+  saveMassiveAcutions() {
     if (this.isValidInfo()) {
       for (var i = 0; i < this.uploader.queue.length; i++) {
         let fileItem = this.uploader.queue[i]._file;
@@ -117,8 +101,6 @@ export class AuctionNewComponent implements OnInit {
         });
       }
       this.uploader.clearQueue();
-      this.info = [];
-      console.log(this.info);
     }
     else {
       this.toastr.error(this.title, "Ingrese los datos pendientes", {
@@ -143,15 +125,13 @@ export class AuctionNewComponent implements OnInit {
   }
 
   uploadFile(data: FormData): Observable<any> {
-    /*
     data.forEach((value, key) => {
       console.log("key %s: value %s", key, value);
     })
-    */
     return this.http.post<any>('http://localhost:4000/images/upload', data);
   }
 
-  uploadSubmitMessage() {
+  showSelectedValues() {
     console.log(`Selected Category: ${this.child.selectedCategory} Selected Date: ${this.child.selectedDate} Selected Time: ${this.child.selectedTime} Selected Interval: ${this.child.selectedInterval}`);
   }
   onChildDateAndTimeChanged(event) {
@@ -191,13 +171,14 @@ export class AuctionNewComponent implements OnInit {
     this.isValid = this.isValidCategory && this.areThereImages;
   }
 
-  onDropedWithInZone(event: CdkDragDrop<string[]>) {
+  onDroppedWithInZone(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.uploader.queue, event.previousIndex, event.currentIndex);
+    console.log(`Moving from ${event.previousIndex} to ${event.currentIndex}`);
     this.refreshUIInfoTime();
   }
 
   refreshUIInfoTime() {
-    this.uploadSubmitMessage();
+    this.showSelectedValues();
     setTimeout(() => {
       let publications = Array.from(document.getElementById('container').children);
       let c = 0;
