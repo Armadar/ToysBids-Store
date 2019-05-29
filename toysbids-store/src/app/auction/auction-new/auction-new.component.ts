@@ -54,10 +54,6 @@ export class AuctionNewComponent implements OnInit {
     this.refreshUIInfoTime();
   }
 
-  getpublicationID(id: string) {
-    return id.toString().substring(3);
-  }
-
   isValidInfo() {
     let missingInfoTotal = 0;
 
@@ -68,7 +64,7 @@ export class AuctionNewComponent implements OnInit {
         let controlBasePrice = controlItem.children[0].children[1].children[0].children[1].children[0];
         if (controlBasePrice != undefined) {
           let basePrice = (<HTMLInputElement>(controlBasePrice)).value;
-          if (this.isValidBasePrice(basePrice)) {
+          if (this.isNotValidBasePrice(basePrice)) {
             missingInfoTotal++;
             controlBasePrice.classList.add('pendinginfo');
           }
@@ -77,10 +73,11 @@ export class AuctionNewComponent implements OnInit {
           }
         }
       }
+
     }
     return missingInfoTotal > 0 ? false : true;
   }
-  isValidBasePrice(val: any) {
+  isNotValidBasePrice(val: any) {
     return val === undefined || val === null || val.length === 0 || isNaN(Number(val));
   }
   saveMassiveAcutions() {
@@ -88,7 +85,7 @@ export class AuctionNewComponent implements OnInit {
       for (var i = 0; i < this.uploader.queue.length; i++) {
         let fileItem = this.uploader.queue[i]._file;
         if (fileItem.size > 10000000) {
-          alert("Each File should be less than 10 MB of size.");
+          alert("Cada imagen no debe superar los 10 MB.");
           return;
         }
       }
@@ -120,14 +117,16 @@ export class AuctionNewComponent implements OnInit {
     data.append('price', currentInfo.precio);
     data.append('description', currentInfo.description);
     data.append('image', fileItem);
-    //data.append('dataType', this.uploadForm.controls.type.value);
+
     return data;
   }
 
   uploadFile(data: FormData): Observable<any> {
+    /*
     data.forEach((value, key) => {
       console.log("key %s: value %s", key, value);
     })
+    */
     return this.http.post<any>('http://localhost:4000/images/upload', data);
   }
 
@@ -159,13 +158,10 @@ export class AuctionNewComponent implements OnInit {
     this.isValidCategory = validCategory;
     this.checkIsValid();
   }
-
   onFileChanged(event) {
-    console.log('FILE CHANGED !!!' + new Date().getTime());
     this.refreshUIInfoTime();
     this.checkIsValid();
   }
-
   checkIsValid() {
     this.areThereImages = this.uploader.queue.length > 0;
     this.isValid = this.isValidCategory && this.areThereImages;
@@ -173,12 +169,12 @@ export class AuctionNewComponent implements OnInit {
 
   onDroppedWithInZone(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.uploader.queue, event.previousIndex, event.currentIndex);
-    console.log(`Moving from ${event.previousIndex} to ${event.currentIndex}`);
+    //console.log(`Moving from ${event.previousIndex} to ${event.currentIndex}`);
     this.refreshUIInfoTime();
   }
 
   refreshUIInfoTime() {
-    this.showSelectedValues();
+    //this.showSelectedValues();
     setTimeout(() => {
       let publications = Array.from(document.getElementById('container').children);
       let c = 0;

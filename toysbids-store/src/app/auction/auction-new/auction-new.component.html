@@ -9,8 +9,8 @@
                 <div class="col-md-6 height-full">
                     <div class="row" style="height:7%;margin-top:7px">
                         <label for="file-upload" class="custom-file-upload">
-              <i class="fa fa-cloud-upload"></i> Seleccionar imagenes
-            </label>
+                            <i class="fa fa-cloud-upload"></i> Seleccionar imagenes
+                        </label>
                         <input (change)="onFileChanged($event)" formControlName="document" id="file-upload" type="file" ng2FileSelect accept="image/png,image/jpeg,image/jpg" [uploader]="uploader" multiple /><br />
                         <br>
                     </div>
@@ -21,8 +21,8 @@
                     </div>
                     <div class="row" style="height:7%">
                         <button class="btn btn-primary save-auction" [disabled]="!isValid" type="submit">
-              <i class="fa fa-floppy-o" style="margin-left:-20px"></i> Guardar imagenes
-            </button>
+                            <i class="fa fa-floppy-o" style="margin-left:-20px"></i> Guardar imagenes
+                        </button>
                     </div>
                 </div>
                 <div class="col-md-6 height-full">
