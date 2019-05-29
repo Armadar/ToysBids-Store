@@ -6,9 +6,12 @@ import { HttpClient } from '@angular/common/http';
 })
 export class AuctionService {
 
-  constructor(private http:HttpClient) { }
+  constructor(private http: HttpClient) { }
 
-  getAuctions(page:number){
-    return this.http.get(`https://randomuser.me/api/?results=10&page=${page}`);  
+  getAuctions(page: number) {
+    return this.http.get(`https://randomuser.me/api/?results=10&page=${page}`);
+  }
+  getAuctionItems(auction: number, page: number) {
+    return this.http.get(`https://randomuser.me/api/?results=10&page=${page}`);
   }
 }

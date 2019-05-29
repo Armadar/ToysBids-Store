@@ -46,6 +46,7 @@ export class AuctionListComponent implements OnInit {
     this.page = this.page + 1;
     this.getAuctions();
   }
+  /*
   onSelectedItem(target, id: number) {
     this.selectedAuction.emit(id);
     this.unselectedItems();
@@ -57,6 +58,7 @@ export class AuctionListComponent implements OnInit {
       publication.classList.remove("itemSelected");
     });
   }
+  */
 
   generateRange(from: Date, to: Date, ) {
     return `del ${moment(from).format("MMM Do YY")} al ${moment(to).format("MMM Do YY")}`;

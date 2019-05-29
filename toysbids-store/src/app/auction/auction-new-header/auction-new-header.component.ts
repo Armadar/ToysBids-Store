@@ -29,7 +29,7 @@ export class AuctionNewHeaderComponent {
     this._localeService.use('es');
   }
 
-  @Output() emision: EventEmitter<any[]> = new EventEmitter<any[]>();
+  @Output() datetimechange: EventEmitter<any[]> = new EventEmitter<any[]>();
   @Output() changeCategory: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   getSelectedDate() { return this.datePipe.transform((moment(this.myDate).format('L')), "yyyy-MM-dd"); }
@@ -86,6 +86,6 @@ export class AuctionNewHeaderComponent {
     this.values = [];
     this.values.push(this.datePipe.transform((moment(this.myDate).format('L')), "yyyy-MM-dd"));
     this.values.push(moment(this.myTime).get('hour'));
-    this.emision.emit(this.values);
+    this.datetimechange.emit(this.values);
   }
 }

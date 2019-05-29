@@ -29,6 +29,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import {DatePipe} from '@angular/common';
 import { AuctionService } from './_services/auction.service';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { AuctionItemListComponent } from './auction/auction-item-list/auction-item-list.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
     HeaderComponent,
     FooterComponent,
     AuctionBeginComponent,
-    AuctionNewHeaderComponent
+    AuctionNewHeaderComponent,
+    AuctionItemListComponent
   ],
   imports: [
     BrowserModule,

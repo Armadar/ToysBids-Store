@@ -1,7 +1,7 @@
 <div class="height-full">
     <div class="row height-full" style="display:flex">
         <div class="col-md-4 height-full border-gray" style="padding-top:7px">
-            <app-auction-new-header (emision)="onChildDateAndTimeChanged($event)" (changeCategory)="onChangedCategory($event)">
+            <app-auction-new-header (datetimechange)="onChildDateAndTimeChanged($event)" (changeCategory)="onChangedCategory($event)">
             </app-auction-new-header>
         </div>
         <div class="col-md-8 height-full border-gray">
@@ -32,7 +32,7 @@
                                 <div class="col-sm-5">
                                     <img src="" imgPreview [image]="item?._file" class="media-object publicationImage" />
                                 </div>
-                                <div class="col-sm-6 marginToZero margin5">
+                                <div class="col-sm-6 marginToZero margin10">
                                     <div class="row">
                                         <div class="col-sm-3">
                                             <label style="margin-top:5px;margin-right:10px;font-weight:100 !important;">Base</label>
@@ -53,5 +53,4 @@
             </form>
         </div>
     </div>
-    <div class="row"></div>
 </div>
