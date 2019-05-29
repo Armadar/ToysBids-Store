@@ -3,19 +3,24 @@
     border: 1px solid green !important;
 }
 */
-.height-full{
-    height:100%;
+
+.height-full {
+    height: 100%;
 }
-.border-gray{
-    border:1px solid gainsboro;
+
+.border-gray {
+    border: 1px solid gainsboro;
     margin-right: 5px;
 }
+
 .border-green {
     border: 1px solid green !important;
 }
+
 .border-red {
     border: 1px solid red !important;
 }
-#toast-container > .toast-error {
+
+#toast-container>.toast-error {
     font-size: 12px;
 }
