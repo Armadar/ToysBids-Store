@@ -12,6 +12,6 @@ export class AuctionService {
     return this.http.get(`https://randomuser.me/api/?results=10&page=${page}`);
   }
   getAuctionItems(auction: number, page: number) {
-    return this.http.get(`https://randomuser.me/api/?results=10&page=${page}`);
+    return this.http.get(`https://randomuser.me/api/?results=10&page=${auction}`);
   }
 }

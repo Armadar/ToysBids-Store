@@ -5,9 +5,10 @@ export class AuctionItem {
   bidCount: number;
   startDate: Date;
   endDate: Date;
-  followedBy: number
+  followedBy: number;
+  mainImage: string;
 
-  constructor(id: number, basePrice: number, currentBid: number, bidCount: number, startDate: Date, endDate: Date, followedBy: number) {
+  constructor(id: number, basePrice: number, currentBid: number, bidCount: number, startDate: Date, endDate: Date, followedBy: number, mainImage: string) {
     this.id = id;
     this.basePrice = basePrice;
     this.currentBid = currentBid;
@@ -15,5 +16,6 @@ export class AuctionItem {
     this.startDate = startDate;
     this.endDate = endDate;
     this.followedBy = followedBy;
+    this.mainImage = mainImage;
   }
 }

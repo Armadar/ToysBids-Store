@@ -16,8 +16,7 @@ export class AuctionDetailComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
       this.id = params['id'];
-      this.child.dosomething(2626);
-      console.log(this.id);
+      this.child.dosomething(this.id);
       /*
       this.platoService.getPlato(this.id).subscribe(data => {
         this.plato = data;

@@ -1,0 +1,19 @@
+.list-container {
+    overflow-y: scroll;
+    height: 90%;
+}
+
+.list-group-item {
+    border: 1px solid gainsboro;
+    margin: 0 !important;
+    padding: 0 10px !important;
+    height: 100px;
+}
+
+.list-group-item>* {
+    pointer-events: none;
+}
+
+.marginToZero {
+    margin: 0px;
+}
