@@ -1,10 +1,10 @@
 <div class="height-full">
     <div class="row height-full" style="display:flex">
         <div class="col-md-4 height-full border-gray paddingToZero">
-            <app-auction-item-list></app-auction-item-list>
+            <app-auction-item-list (selectedAuctionItem)="onSelectedAuctionItem($event)"></app-auction-item-list>
         </div>
         <div class="col-md-8 height-full border-gray">
-            {{id}}
+            <app-auction-item-detail></app-auction-item-detail>
         </div>
     </div>
 </div>

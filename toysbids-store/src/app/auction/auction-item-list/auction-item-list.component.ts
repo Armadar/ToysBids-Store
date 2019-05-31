@@ -15,7 +15,7 @@ export class AuctionItemListComponent implements OnInit {
   auctionsCount = 0;
   auctionID = 0;
 
-  @Output() selectedAuction: EventEmitter<number> = new EventEmitter<number>();
+  @Output() selectedAuctionItem: EventEmitter<number> = new EventEmitter<number>();
 
   constructor(private auctionService: AuctionService, private router: Router,
     private route: ActivatedRoute) {
@@ -48,9 +48,8 @@ export class AuctionItemListComponent implements OnInit {
     this.page = this.page + 1;
     this.getAuctionItems();
   }
-  /*
   onSelectedItem(target, id: number) {
-    this.selectedAuction.emit(id);
+    this.selectedAuctionItem.emit(id);
     this.unselectedItems();
     target.classList.add("itemSelected");
   }
@@ -60,5 +59,5 @@ export class AuctionItemListComponent implements OnInit {
       publication.classList.remove("itemSelected");
     });
   }
-  */
+
 }

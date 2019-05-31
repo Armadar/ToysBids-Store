@@ -24,4 +24,8 @@ export class AuctionDetailComponent implements OnInit {
       */
     });
   }
+
+  onSelectedAuctionItem(auctionItemID) {
+    console.log(auctionItemID);
+  }
 }

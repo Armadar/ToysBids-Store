@@ -13,7 +13,7 @@ const appRoutes: Routes = [
       { path: '', component: AuctionBeginComponent },// Bienvenida
       { path: 'new', component: AuctionNewComponent },// Formulario de registro
       { path: ':id', component: AuctionDetailComponent },// Mostrar informacion del plato enviado por la URL, : significa ruta dinamica
-    ]
+    ],
   },
   { path: 'notification', component: NotificationComponent },
   { path: '', redirectTo: 'auction', pathMatch: 'full' },

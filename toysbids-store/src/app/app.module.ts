@@ -30,6 +30,7 @@ import {DatePipe} from '@angular/common';
 import { AuctionService } from './_services/auction.service';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { AuctionItemListComponent } from './auction/auction-item-list/auction-item-list.component';
+import { AuctionItemDetailComponent } from './auction/auction-item-detail/auction-item-detail.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { AuctionItemListComponent } from './auction/auction-item-list/auction-it
     FooterComponent,
     AuctionBeginComponent,
     AuctionNewHeaderComponent,
-    AuctionItemListComponent
+    AuctionItemListComponent,
+    AuctionItemDetailComponent
   ],
   imports: [
     BrowserModule,
