@@ -1,4 +1,4 @@
-<div class="height-full border-gray" style="margin-left:25px">
+<div class="height-full" style="margin:0px !important">
     <div style="height:10%">
         <div class="row marginToZero" style="height:90%;background-color: rgb(71, 77, 83)">
             <div class="col-sm-10">
@@ -19,10 +19,18 @@
 
     <div id="container-auctions" infiniteScroll [infiniteScrollDistance]="1" [infiniteScrollThrottle]="300" (scrolled)="onScroll()" [scrollWindow]="false" class="list-container">
         <div id={{i+1}} *ngFor="let item of auctionItems;let i = index" class="list-group-item" [attr.data-index]="i" style="cursor: pointer" [routerLink]="[i+1]" routerLinkActive="itemSelected">
-            <div> <img src="{{item.mainImage}}"></div>
-            <div class="category">{{item.basePrice}}</div>
-            <div class="range">{{item.currentBid}}</div>
-            <div class="count">{{item.bidCount}} articulos</div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <img src="{{item.mainImage}}" height="100px" width="100px">
+                </div>
+                <div class="col-sm-8">
+                    <div class="category">Precio base: {{item.basePrice}}</div>
+                    <div class="range">Pujas: {{item.bidCount}}</div>
+                    <div class="count">Termina el: {{item.bidCount}}</div>
+                    <div class="count">Seguido por {{item.followedBy}} personas</div>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>

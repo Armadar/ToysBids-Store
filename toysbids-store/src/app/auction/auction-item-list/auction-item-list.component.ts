@@ -30,14 +30,12 @@ export class AuctionItemListComponent implements OnInit {
   }
   getAuctionItems() {
     this.auctionService.getAuctionItems(this.auctionID, this.page).subscribe((res) => this.onSuccess(res));
-    console.log(`Getting Items from auction: ${this.auctionID} ...`)
   }
   onSuccess(res) {
     if (res != undefined) {
       let c = 1;
       res['results'].forEach(item => {
         let auction = new AuctionItem(c, item.dob.age, item.dob.age + 5, item.registered.aged, new Date(), new Date(), item.name.first.length, item.picture.medium);
-
         this.auctionItems.push(auction);
         c++;
       });
