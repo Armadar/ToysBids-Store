@@ -1,3 +1,29 @@
-<p>
-  auction-item-detail works!
-</p>
+<div style="height: 100%">
+    <div class="border-green" style="height: 13%">
+        <div class="col-md-6">
+            <div class="form-group" style="margin-top:7px;">
+                <label for="baseprice">Precio Base:</label>
+                <input id="baseprice" type="text" class="form-control form-control-sm" [(ngModel)]="_item.basePrice">
+            </div>
+        </div>
+    </div>
+    <div class="border-green" style="height: 37%">
+        <div class="col-md-6">
+            <div class="form-group" style="margin-top:7px;">
+                <label for="images">Imagenes:</label>
+
+            </div>
+        </div>
+    </div>
+    <div class="border-green" style="height: 40%">
+        <div class="col-md-11">
+            <div class="form-group" style="margin-top:7px;height:100%;">
+                <label for="description">Descripcion:</label>
+                <textarea id="description" class="form-control" rows="8" [(ngModel)]="_item.description"></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="border-green" style="height: 10%">
+        <button class="btn btn-success" (click)="save()">Actualizar</button>
+    </div>
+</div>

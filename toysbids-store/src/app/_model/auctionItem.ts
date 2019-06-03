@@ -7,6 +7,7 @@ export class AuctionItem {
   endDate: Date;
   followedBy: number;
   mainImage: string;
+  description:string;
 
   constructor(id: number, basePrice: number, currentBid: number, bidCount: number, startDate: Date, endDate: Date, followedBy: number, mainImage: string) {
     this.id = id;
