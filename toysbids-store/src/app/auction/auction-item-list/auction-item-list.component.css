@@ -18,3 +18,7 @@
 .marginToZero {
     margin: 0px;
 }
+
+.itemSelected {
+    background-color: rgb(135, 231, 111);
+}

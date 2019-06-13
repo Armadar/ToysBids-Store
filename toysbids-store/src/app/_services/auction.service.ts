@@ -14,4 +14,7 @@ export class AuctionService {
   getAuctionItems(auction: number, page: number) {
     return this.http.get(`https://randomuser.me/api/?results=10&page=${auction}`);
   }
+  getAuctionInfo(auctionId: number) {
+    return this.http.get(`https://rickandmortyapi.com/api/character/${auctionId}`);
+  }
 }

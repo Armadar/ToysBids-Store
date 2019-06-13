@@ -13,7 +13,7 @@ export class AuctionItemListComponent implements OnInit {
   page = 1;
   showLoadingIcon = true;
   auctionsCount = 0;
-  auctionID = 0;
+  auctionBundleId = 0;
 
   @Output() selectedAuctionItem: EventEmitter<number> = new EventEmitter<number>();
 
@@ -23,13 +23,13 @@ export class AuctionItemListComponent implements OnInit {
   ngOnInit() {
     this.getAuctionItems();
   }
-  dosomething(auctionID: number) {
+  getAuctionItemsByAuctionBundleId(auctionBundleId: number) {
     this.auctionItems = [];
-    this.auctionID = auctionID;
+    this.auctionBundleId = auctionBundleId;
     this.getAuctionItems()
   }
   getAuctionItems() {
-    this.auctionService.getAuctionItems(this.auctionID, this.page).subscribe((res) => this.onSuccess(res));
+    this.auctionService.getAuctionItems(this.auctionBundleId, this.page).subscribe((res) => this.onSuccess(res));
   }
   onSuccess(res) {
     if (res != undefined) {
@@ -59,5 +59,4 @@ export class AuctionItemListComponent implements OnInit {
       publication.classList.remove("itemSelected");
     });
   }
-
 }

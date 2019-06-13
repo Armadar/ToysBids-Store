@@ -17,7 +17,7 @@ export class AuctionListComponent implements OnInit {
 
   @Output() selectedAuction: EventEmitter<number> = new EventEmitter<number>();
 
-  constructor(private auctionService: AuctionService,private router: Router,
+  constructor(private auctionService: AuctionService, private router: Router,
     private route: ActivatedRoute) {
   }
 
@@ -46,19 +46,6 @@ export class AuctionListComponent implements OnInit {
     this.page = this.page + 1;
     this.getAuctions();
   }
-  /*
-  onSelectedItem(target, id: number) {
-    this.selectedAuction.emit(id);
-    this.unselectedItems();
-    target.classList.add("itemSelected");
-  }
-  unselectedItems() {
-    let publications = Array.from(document.getElementById('container-auctions').children);
-    publications.forEach((publication) => {
-      publication.classList.remove("itemSelected");
-    });
-  }
-  */
 
   generateRange(from: Date, to: Date, ) {
     return `del ${moment(from).format("MMM Do YY")} al ${moment(to).format("MMM Do YY")}`;
