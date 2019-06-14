@@ -26,6 +26,7 @@ export class AuctionNewComponent implements OnInit {
   isValid: boolean = false;
   isValidCategory = false;
   areThereImages = false;
+  generalBasePrice: string;
 
   @ViewChild(AuctionNewHeaderComponent) child;
   myInnerHeight: number;
@@ -174,7 +175,6 @@ export class AuctionNewComponent implements OnInit {
   }
 
   refreshUIInfoTime() {
-    //this.showSelectedValues();
     setTimeout(() => {
       let publications = Array.from(document.getElementById('container').children);
       let c = 0;
@@ -202,4 +202,12 @@ export class AuctionNewComponent implements OnInit {
     }
   }
 
+  onKeyup(event: any) {
+    this.generalBasePrice = event.target.value;
+  }
+  onKeydown(event:any) {
+    if (event.key === "Enter") {
+      console.log(this.generalBasePrice);
+    }
+  }
 }

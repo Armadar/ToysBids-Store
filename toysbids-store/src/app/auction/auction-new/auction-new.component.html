@@ -14,9 +14,17 @@
                         <input (change)="onFileChanged($event)" formControlName="document" id="file-upload" type="file" ng2FileSelect accept="image/png,image/jpeg,image/jpg" [uploader]="uploader" multiple /><br />
                         <br>
                     </div>
-                    <div class="row" style="height:84%">
+                    <div class="row" style="height:77%">
                         <div id="dropZone" ng2FileDrop [uploader]="uploader" class="drop-zone" style="text-align: center;padding-top:60%">
                             Arrastrar imagenes
+                        </div>
+                    </div>
+                    <div class="row" style="height:7%;border:1px solid green;">
+                        <div class="col-sm-7">
+                            <label style="margin-top:5px;margin-right:10px;font-weight:100 !important;">Precio Base general</label>
+                        </div>
+                        <div class="col-sm-5">
+                            <input class="form-control form-control-sm price" placeholder="0.00" type="text" value="{{generalBasePrice}}" (keyup)="onKeyup($event)" (keydown)="onKeydown($event)" />
                         </div>
                     </div>
                     <div class="row" style="height:7%">
