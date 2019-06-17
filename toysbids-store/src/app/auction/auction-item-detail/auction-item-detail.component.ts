@@ -19,8 +19,8 @@ export class AuctionItemDetailComponent implements OnInit {
   }
 
   setInfo(auctionInfo: any) {
-    this._item.basePrice = auctionInfo.episode.length;
-    this._item.description = auctionInfo.name;
+    this._item.basePrice = auctionInfo.price;
+    this._item.description = '';
   }
   save() {
     console.log(`Base Price: ${this._item.basePrice}  Description: ${this._item.description}`);
