@@ -44,9 +44,7 @@ export class AuctionNewHeaderComponent {
   categories: Category[] = [
     { id: 1, name: 'Transformers' },
     { id: 2, name: 'Star Wars' },
-    { id: 3, name: 'Marvel Legends' },
-    { id: 4, name: 'Saint Seiya' },
-    { id: 5, name: 'GIJOE' }
+    { id: 3, name: 'Marvel' }
   ];
   minutes: any[] = [
     2,

@@ -82,6 +82,7 @@ export class AuctionNewComponent implements OnInit {
     return val === undefined || val === null || val.length === 0 || isNaN(Number(val));
   }
   saveMassiveAcutions() {
+
     if (this.isValidInfo()) {
       for (var i = 0; i < this.uploader.queue.length; i++) {
         let fileItem = this.uploader.queue[i]._file;
@@ -90,15 +91,15 @@ export class AuctionNewComponent implements OnInit {
           return;
         }
       }
-      for (var j = 0; j < this.uploader.queue.length; j++) {
-        let data = this.createData(j);
-        this.uploadFile(data).subscribe(data => alert(data.message), err => {
-          this.toastr.error(this.title, err.message, {
-            timeOut: 3000
-          });
+      // Auction Bundle
+      let auctionBundle = this.createAuctionBundle();
+      this.insertAuctionBundle(auctionBundle).subscribe(res => this.saveAuctions(res.message), err => {
+        this.toastr.error(this.title, err.message, {
+          timeOut: 3000
         });
-      }
-      this.uploader.clearQueue();
+      });
+      //
+
     }
     else {
       this.toastr.error(this.title, "Ingrese los datos pendientes", {
@@ -107,28 +108,64 @@ export class AuctionNewComponent implements OnInit {
     }
   }
 
-  createData(index: number) {
+  saveAuctions(auctionbundleID: string) {
+    console.log('generatedid:', auctionbundleID);
+    if (auctionbundleID != undefined) {
+      for (var j = 0; j < this.uploader.queue.length; j++) {
+        let data = this.createAuction(j, auctionbundleID);
+        this.uploadFile(data).subscribe(data => console.log(data.message), err => {
+          this.toastr.error(this.title, err.message, {
+            timeOut: 3000
+          });
+        });
+      }
+      this.uploader.clearQueue();
+    }
+  }
+
+  createAuctionBundle() {
+    let auctionBundle = new FormData();
+    auctionBundle.append('id', "0");
+    auctionBundle.append('StoreID', "1000");
+    auctionBundle.append('CategoryID', this.child.selectedCategory);
+    return auctionBundle;
+  }
+  createAuction(index: number, auctionBundleId: string) {
     let data = new FormData();
     let fileItem = this.uploader.queue[index]._file;
     let currentInfo = this.getItemInfoById(index + 1);
 
-    data.append('parentId', '2626' + '_' + Date.now().toString());
-    data.append('id', (index + 1).toString());
-    data.append('ownFileName', fileItem.name);
+    data.append('auctionBundleId', auctionBundleId);
     data.append('price', currentInfo.precio);
+    data.append('type', "1");
+    data.append('CategoryID', this.child.selectedCategory);
+    data.append('SellerID', "1");
+
+    //data.append('parentId', '2626' + '_' + Date.now().toString());
+    data.append('order', (index + 1).toString());
+    data.append('ownFileName', fileItem.name);
+    
     data.append('description', currentInfo.description);
-    data.append('image', fileItem);
+
+    data.append('data', fileItem);
+
 
     return data;
   }
 
-  uploadFile(data: FormData): Observable<any> {
+  insertAuctionBundle(auctionBundle: FormData): Observable<any> {
+    return this.http.post<any>('http://localhost:2000/api/auctions', auctionBundle);
+  }
+
+  uploadFile(auction: FormData): Observable<any> {
     /*
     data.forEach((value, key) => {
       console.log("key %s: value %s", key, value);
     })
     */
-    return this.http.post<any>('http://localhost:4000/images/upload', data);
+    //return this.http.post<any>('http://localhost:4000/images/upload', data);
+    console.log('tryin to saving: ', auction);
+    return this.http.post<any>('http://localhost:2000/api/auctions/uploadauction', auction);
   }
 
   showSelectedValues() {
@@ -205,7 +242,7 @@ export class AuctionNewComponent implements OnInit {
   onKeyup(event: any) {
     this.generalBasePrice = event.target.value;
   }
-  onKeydown(event:any) {
+  onKeydown(event: any) {
     if (event.key === "Enter") {
       console.log(this.generalBasePrice);
     }
