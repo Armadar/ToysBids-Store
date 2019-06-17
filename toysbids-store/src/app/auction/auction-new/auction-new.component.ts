@@ -42,7 +42,9 @@ export class AuctionNewComponent implements OnInit {
 
         if (controlItem != undefined) {
           let basePrice = (<HTMLInputElement>(controlItem.children[0].children[1].children[0].children[1].children[0])).value;
+          let endTime = (<HTMLLabelElement>(controlItem.children[0].children[1].children[1].children[0])).innerText;          
           info.precio = basePrice;
+          info.endTime = endTime;
         }
       }
     }
@@ -139,16 +141,15 @@ export class AuctionNewComponent implements OnInit {
     data.append('price', currentInfo.precio);
     data.append('type', "1");
     data.append('CategoryID', this.child.selectedCategory);
-    data.append('SellerID', "1");
+    data.append('SellerID', "2");
 
     //data.append('parentId', '2626' + '_' + Date.now().toString());
     data.append('order', (index + 1).toString());
-    data.append('ownFileName', fileItem.name);
-    
-    data.append('description', currentInfo.description);
+    data.append('ownFileName', fileItem.name);    
+    data.append('endDate', this.child.selectedDate + " " + currentInfo.endTime);
+    console.log('EndDate: ',this.child.selectedDate + " " + currentInfo.endTime);
 
     data.append('data', fileItem);
-
 
     return data;
   }
