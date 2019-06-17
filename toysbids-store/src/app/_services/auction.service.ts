@@ -20,4 +20,8 @@ export class AuctionService {
     //return this.http.get(`https://rickandmortyapi.com/api/character/${auctionId}`);
     return this.http.get(`http://localhost:2000/api/auctions/getauctioninfo/${auctionId}`);
   }
+  updateAuction(auctionId: number,basePrice:number) {
+    //return this.http.get(`https://rickandmortyapi.com/api/character/${auctionId}`);
+    return this.http.get(`http://localhost:2000/api/auctions/updateauction/${auctionId}/${basePrice}`);
+  }
 }
