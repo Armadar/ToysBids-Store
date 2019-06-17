@@ -21,21 +21,22 @@ export class AuctionItemListComponent implements OnInit {
     private route: ActivatedRoute) {
   }
   ngOnInit() {
-    this.getAuctionItems();
+    //this.getAuctionItems();
+  }
+  getAuctionItems() {
+    this.auctionService.getAuctionItems(this.auctionBundleId, this.page).subscribe((res) => this.onSuccess(res));
   }
   getAuctionItemsByAuctionBundleId(auctionBundleId: number) {
     this.auctionItems = [];
     this.auctionBundleId = auctionBundleId;
     this.getAuctionItems()
   }
-  getAuctionItems() {
-    this.auctionService.getAuctionItems(this.auctionBundleId, this.page).subscribe((res) => this.onSuccess(res));
-  }
+
   onSuccess(res) {
     if (res != undefined) {
       let c = 1;
       res.forEach(item => {
-        let auction = new AuctionItem(item.id,item.price,0,0,item.beginDate,item.endDate,0,item.mainPicture);
+        let auction = new AuctionItem(item.id, item.price, 0, 0, item.beginDate, item.endDate, 0, item.mainPicture);
         this.auctionItems.push(auction);
         c++;
       });

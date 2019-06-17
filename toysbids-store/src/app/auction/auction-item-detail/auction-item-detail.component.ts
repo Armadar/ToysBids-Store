@@ -15,18 +15,15 @@ export class AuctionItemDetailComponent implements OnInit {
   constructor(private auctionService: AuctionService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
-    console.log('init');
     this._item = new AuctionItem(0, 0,0, 0, new Date(), new Date(), 8, 'image url');
     //this._item.description = this.description;
   }
 
   setInfo(auctionInfo: any) {
-    console.info(auctionInfo);
-    //this._item.basePrice = auctionInfo.price;
-    //this._item.description = '';
+    this._item = auctionInfo;
   }
   save() {
-    this.auctionService.updateAuction(this._item.id, this._item.basePrice).subscribe((res) => this.onSuccess(res));
+    this.auctionService.updateAuction(this._item.id, this._item.price).subscribe((res) => this.onSuccess(res));
   }
   onSuccess(res) {
     if (res != undefined) {
