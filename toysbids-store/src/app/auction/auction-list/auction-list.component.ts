@@ -22,18 +22,18 @@ export class AuctionListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getAuctions();
+    this.getAuctionBundles();
   }
 
-  getAuctions() {
-    this.auctionService.getAuctions(this.page).subscribe((res) => this.onSuccess(res));
+  getAuctionBundles() {
+    this.auctionService.getAuctionBundles(this.page).subscribe((res) => this.onSuccess(res));
   }
   onSuccess(res) {
     if (res != undefined) {
       let c = 1;
-      res['results'].forEach(item => {
-        let auction = new Auction(c, item.location.state, item.dob.date, item.registered.date, item.dob.age);
-        auction.range = this.generateRange(item.dob.date, item.registered.date);
+      res.forEach(item => {
+        let auction = new Auction(item.id,item.categoryID,item.createdOn,item.createdOn,10);
+        auction.range = this.generateRange(item.createdOn, item.createdOn);
         this.auctions.push(auction);
         c++;
       });
@@ -44,7 +44,7 @@ export class AuctionListComponent implements OnInit {
   onScroll() {
     this.showLoadingIcon = true;
     this.page = this.page + 1;
-    this.getAuctions();
+    this.getAuctionBundles();
   }
 
   generateRange(from: Date, to: Date, ) {
