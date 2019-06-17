@@ -34,8 +34,8 @@ export class AuctionItemListComponent implements OnInit {
   onSuccess(res) {
     if (res != undefined) {
       let c = 1;
-      res['results'].forEach(item => {
-        let auction = new AuctionItem(c, item.dob.age, item.dob.age + 5, item.registered.aged, new Date(), new Date(), item.name.first.length, item.picture.medium);
+      res.forEach(item => {
+        let auction = new AuctionItem(item.id,item.price,0,0,item.beginDate,item.endDate,0,item.mainPicture);
         this.auctionItems.push(auction);
         c++;
       });

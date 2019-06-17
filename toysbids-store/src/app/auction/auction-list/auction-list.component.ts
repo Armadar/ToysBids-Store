@@ -29,13 +29,11 @@ export class AuctionListComponent implements OnInit {
     this.auctionService.getAuctionBundles(this.page).subscribe((res) => this.onSuccess(res));
   }
   onSuccess(res) {
-    if (res != undefined) {
-      let c = 1;
+    if (res != undefined) {     
       res.forEach(item => {
         let auction = new Auction(item.id,item.categoryID,item.createdOn,item.createdOn,10);
         auction.range = this.generateRange(item.createdOn, item.createdOn);
         this.auctions.push(auction);
-        c++;
       });
       this.showLoadingIcon = false;
       this.auctionsCount = this.auctions.length;
