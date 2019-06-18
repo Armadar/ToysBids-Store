@@ -128,11 +128,14 @@ export class AuctionNewComponent implements OnInit {
   createAuctionBundle() {
     let auctionBundle = new FormData();
     auctionBundle.append('title', this.child.title);
-    auctionBundle.append('id', "0");
-    auctionBundle.append('StoreID', "1000");
+    auctionBundle.append('id', "0");//TODO Validate 
+    auctionBundle.append('StoreID', "1000");//TODO
     auctionBundle.append('CategoryID', this.child.selectedCategory);
+    auctionBundle.append('to',this.child.selectedDate)
+    auctionBundle.append('CreatedBy',"1000")//TODO
     return auctionBundle;
   }
+
   createAuction(index: number, auctionBundleId: string) {
     let data = new FormData();
     let fileItem = this.uploader.queue[index]._file;

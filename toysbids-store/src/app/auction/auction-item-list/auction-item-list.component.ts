@@ -20,9 +20,7 @@ export class AuctionItemListComponent implements OnInit {
   constructor(private auctionService: AuctionService, private router: Router,
     private route: ActivatedRoute) {
   }
-  ngOnInit() {
-    //this.getAuctionItems();
-  }
+  ngOnInit() {}
   getAuctionItems() {
     this.auctionService.getAuctionItems(this.auctionBundleId, this.page).subscribe((res) => this.onSuccess(res));
   }

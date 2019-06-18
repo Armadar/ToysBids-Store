@@ -31,8 +31,8 @@ export class AuctionListComponent implements OnInit {
   onSuccess(res) {
     if (res != undefined) {
       res.forEach(item => {
-        let ab = new AuctionBundle(item.id, item.title, item.categoryID, item.createdOn, item.createdOn, 10);
-        ab.range = this.generateRange(item.createdOn, item.createdOn);
+        let ab = new AuctionBundle(item.id, item.title, item.categoryID, item.from, item.to, 10);
+        ab.range = this.generateRange(item.from, item.to);
         this.auctionBundles.push(ab);
       });
       this.showLoadingIcon = false;
@@ -46,7 +46,10 @@ export class AuctionListComponent implements OnInit {
   }
 
   generateRange(from: Date, to: Date, ) {
-    return `del ${moment(from).format("MMM Do YY")} al ${moment(to).format("MMM Do YY")}`;
+    let year = new Date(from).getFullYear() == new Date().getFullYear() ? '' : ' YY';
+    console.log('from',new Date(from).getFullYear());
+    console.log('current',new Date().getFullYear());
+    return `del ${moment(from).format("Do MMM" + year)} al ${moment(to).format("Do MMM" + year)}`;
   }
 
   createNewAuction() {
