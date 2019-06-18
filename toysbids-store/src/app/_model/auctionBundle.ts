@@ -1,18 +1,24 @@
 export class AuctionBundle {
   id: number;
+  storeId: number;
+  categoryId: number;
   title: string;
-  category: string;
   from: Date;
   to: Date;
-  count: number;
+  createdOn: Date;
+  createdBy: number;
+  auctionsCount: number;
   range: string;
 
-  constructor(id: number, title: string, category: string, from: Date, to: Date, count: number) {
+  constructor(id: number, storeId: number, categoryId: number, title: string, from: Date, to: Date, createdOn: Date, createdBy: number, auctionsCount: number) {
     this.id = id;
+    this.storeId = storeId;
+    this.categoryId = categoryId;
     this.title = title;
-    this.category = category;
     this.from = from;
     this.to = to;
-    this.count = count;
+    this.createdOn = createdOn;
+    this.createdBy = createdBy;
+    this.auctionsCount = auctionsCount;
   }
 }

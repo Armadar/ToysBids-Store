@@ -21,7 +21,7 @@
         <div id={{i+1}} *ngFor="let item of auctionBundles;let i = index" class="list-group-item" [attr.data-index]="i" style="cursor: pointer" [routerLink]="[item.id]" routerLinkActive="itemSelected">
             <div class="title">{{item.title}}</div>
             <div class="range">{{item.range}}</div>
-            <div class="count">{{item.count}} articulos</div>
+            <div class="count">{{item.auctionsCount}} articulos</div>
         </div>
     </div>
 </div>
