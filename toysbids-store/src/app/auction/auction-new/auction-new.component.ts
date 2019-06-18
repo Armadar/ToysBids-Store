@@ -127,6 +127,7 @@ export class AuctionNewComponent implements OnInit {
 
   createAuctionBundle() {
     let auctionBundle = new FormData();
+    auctionBundle.append('title', this.child.title);
     auctionBundle.append('id', "0");
     auctionBundle.append('StoreID', "1000");
     auctionBundle.append('CategoryID', this.child.selectedCategory);
@@ -245,7 +246,17 @@ export class AuctionNewComponent implements OnInit {
   }
   onKeydown(event: any) {
     if (event.key === "Enter") {
-      console.log(this.generalBasePrice);
+      //console.log(this.generalBasePrice);
+      this.setPriceToAll();
     }
+  }
+  setPriceToAll() {
+    setTimeout(() => {
+      let publications = Array.from(document.getElementById('container').children);
+      publications.forEach((publication) => {
+        let controlBasePrice =  publication.children[0].children[1].children[0].children[1].children[0];
+        (<HTMLInputElement>controlBasePrice).value = this.generalBasePrice;
+      });
+    }, 500);
   }
 }

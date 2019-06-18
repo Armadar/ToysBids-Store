@@ -1,7 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { AuctionService } from 'src/app/_services/auction.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Auction } from 'src/app/_model/auction';
+import { AuctionBundle } from 'src/app/_model/auctionBundle';
 import * as moment from 'moment';
 
 @Component({
@@ -10,7 +10,7 @@ import * as moment from 'moment';
   styleUrls: ['./auction-list.component.css']
 })
 export class AuctionListComponent implements OnInit {
-  auctions: Auction[] = [];
+  auctionBundles: AuctionBundle[] = [];
   page = 1;
   showLoadingIcon = true;
   auctionsCount = 0;
@@ -29,14 +29,14 @@ export class AuctionListComponent implements OnInit {
     this.auctionService.getAuctionBundles(this.page).subscribe((res) => this.onSuccess(res));
   }
   onSuccess(res) {
-    if (res != undefined) {     
+    if (res != undefined) {
       res.forEach(item => {
-        let auction = new Auction(item.id,item.categoryID,item.createdOn,item.createdOn,10);
-        auction.range = this.generateRange(item.createdOn, item.createdOn);
-        this.auctions.push(auction);
+        let ab = new AuctionBundle(item.id, item.title, item.categoryID, item.createdOn, item.createdOn, 10);
+        ab.range = this.generateRange(item.createdOn, item.createdOn);
+        this.auctionBundles.push(ab);
       });
       this.showLoadingIcon = false;
-      this.auctionsCount = this.auctions.length;
+      this.auctionsCount = this.auctionBundles.length;
     }
   }
   onScroll() {

@@ -14,9 +14,10 @@
     pointer-events: none;
 }
 
-.category {
-    font-size: 20px;
-    font-weight: 500;
+.title {
+    margin-top: 10px;
+    font-size: 16px;
+    font-weight: 550;
 }
 
 .range {

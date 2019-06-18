@@ -2,6 +2,14 @@
   <div class="row">
     <div class="col-md-12">
       <div class="form-group">
+        <label for="title">Titulo</label>
+        <input id="title" type="text" class="form-control" [(ngModel)]="title">
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="form-group">
         <label for="category">Categoria</label>
         <ngx-select-dropdown id="category" [multiple]="false" (change)="onSelectedCategory($event)"
           [options]="categories" [config]="{displayKey: 'name', placeholder: 'Seleccionar Categoria'}">

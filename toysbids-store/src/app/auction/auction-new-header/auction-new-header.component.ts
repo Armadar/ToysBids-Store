@@ -17,11 +17,12 @@ export class AuctionNewHeaderComponent {
   myDate: Date = new Date();
   myTime: Date = this.getInitHour();
 
+  title:string;
   selectedCategory: number = 0;
   selectedDate = this.getSelectedDate();
   selectedTime = this.getSelectedTime();
   selectedInterval: number = 2;
-
+  
   values: any[]
 
   constructor(private _localeService: BsLocaleService, private datePipe: DatePipe) {
