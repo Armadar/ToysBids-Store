@@ -10,6 +10,7 @@ import { ToastrService } from 'ngx-toastr';
 
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import * as helper from './../../_helpers/helper'
+import { AuctionService } from 'src/app/_services/auction.service';
 
 @Component({
   selector: 'app-auction-new',
@@ -31,7 +32,24 @@ export class AuctionNewComponent implements OnInit {
   @ViewChild(AuctionNewHeaderComponent) child;
   myInnerHeight: number;
 
-  constructor(private fb: FormBuilder, private http: HttpClient, private toastr: ToastrService) { }
+  ngOnInit() {
+    this.uploadForm = this.fb.group({
+      document: [null, null]
+    });
+    helper.avoidDragAndDrop("dropZone");
+    this.whenAnImageIsDropped();
+  }
+
+  whenAnImageIsDropped() {
+    let dropZone = document.getElementById('dropZone');
+    dropZone.addEventListener('drop', (e) => {
+      this.refreshUIInfoTime();
+      dropZone.classList.remove('dropzoneHightlight');
+      dropZone.classList.remove('dropzoneFocus');
+    });
+  }
+
+  constructor(private auctionService: AuctionService, private fb: FormBuilder, private http: HttpClient, private toastr: ToastrService) { }
 
   getItemInfoById(id: any) {
     let info: Info = new Info(0, '', '');
@@ -42,7 +60,7 @@ export class AuctionNewComponent implements OnInit {
 
         if (controlItem != undefined) {
           let basePrice = (<HTMLInputElement>(controlItem.children[0].children[1].children[0].children[1].children[0])).value;
-          let endTime = (<HTMLLabelElement>(controlItem.children[0].children[1].children[1].children[0])).innerText;          
+          let endTime = (<HTMLLabelElement>(controlItem.children[0].children[1].children[1].children[0])).innerText;
           info.precio = basePrice;
           info.endTime = endTime;
         }
@@ -51,7 +69,6 @@ export class AuctionNewComponent implements OnInit {
 
     return info;
   }
-
   onRemoveItem(): void {
     this.checkIsValid();
     this.refreshUIInfoTime();
@@ -83,25 +100,22 @@ export class AuctionNewComponent implements OnInit {
   isNotValidBasePrice(val: any) {
     return val === undefined || val === null || val.length === 0 || isNaN(Number(val));
   }
-  saveMassiveAcutions() {
-
+  
+  save() {
     if (this.isValidInfo()) {
       for (var i = 0; i < this.uploader.queue.length; i++) {
         let fileItem = this.uploader.queue[i]._file;
-        if (fileItem.size > 10000000) {
+        if (fileItem.size > 10000000) {//TODO: Test image over 10 MB size
           alert("Cada imagen no debe superar los 10 MB.");
           return;
         }
       }
-      // Auction Bundle
       let auctionBundle = this.createAuctionBundle();
-      this.insertAuctionBundle(auctionBundle).subscribe(res => this.saveAuctions(res.message), err => {
+      this.auctionService.insertAuctionBundle(auctionBundle).subscribe(res => this.saveAuctions(res.auctionBundleId), err => {
         this.toastr.error(this.title, err.message, {
           timeOut: 3000
         });
       });
-      //
-
     }
     else {
       this.toastr.error(this.title, "Ingrese los datos pendientes", {
@@ -109,13 +123,11 @@ export class AuctionNewComponent implements OnInit {
       });
     }
   }
-
-  saveAuctions(auctionbundleID: string) {
-    console.log('generatedid:', auctionbundleID);
-    if (auctionbundleID != undefined) {
+  saveAuctions(auctionBundleId: string) {
+    if (auctionBundleId != undefined) {
       for (var j = 0; j < this.uploader.queue.length; j++) {
-        let data = this.createAuction(j, auctionbundleID);
-        this.uploadFile(data).subscribe(data => console.log(data.message), err => {
+        let auction = this.createAuction(j, auctionBundleId);
+        this.auctionService.insertAuction(auction).subscribe(res => this.workingWithTheResult(res), err => {
           this.toastr.error(this.title, err.message, {
             timeOut: 3000
           });
@@ -124,6 +136,7 @@ export class AuctionNewComponent implements OnInit {
       this.uploader.clearQueue();
     }
   }
+  workingWithTheResult(res: any) { }
 
   createAuctionBundle() {
     let auctionBundle = new FormData();
@@ -131,72 +144,28 @@ export class AuctionNewComponent implements OnInit {
     auctionBundle.append('id', "0");//TODO Validate 
     auctionBundle.append('StoreID', "1000");//TODO
     auctionBundle.append('CategoryID', this.child.selectedCategory);
-    auctionBundle.append('to',this.child.selectedDate)
-    auctionBundle.append('CreatedBy',"1000")//TODO
+    auctionBundle.append('to', this.child.selectedDate)
+    auctionBundle.append('CreatedBy', "1000")//TODO
     return auctionBundle;
   }
-
   createAuction(index: number, auctionBundleId: string) {
-    let data = new FormData();
+    let auction = new FormData();
     let fileItem = this.uploader.queue[index]._file;
     let currentInfo = this.getItemInfoById(index + 1);
 
-    data.append('auctionBundleId', auctionBundleId);
-    data.append('price', currentInfo.precio);
-    data.append('type', "1");
-    data.append('CategoryID', this.child.selectedCategory);
-    data.append('SellerID', "2");
-
-    //data.append('parentId', '2626' + '_' + Date.now().toString());
-    data.append('order', (index + 1).toString());
-    data.append('ownFileName', fileItem.name);    
-    data.append('endDate', this.child.selectedDate + " " + currentInfo.endTime);
-    console.log('EndDate: ',this.child.selectedDate + " " + currentInfo.endTime);
-
-    data.append('data', fileItem);
-
-    return data;
+    auction.append('auctionBundleId', auctionBundleId);
+    auction.append('price', currentInfo.precio);
+    auction.append('type', "1");//TODO: Auction or Direct sale
+    auction.append('CategoryID', this.child.selectedCategory);
+    auction.append('SellerID', "2");//TODO: current Store
+    auction.append('endDate', this.child.selectedDate + " " + currentInfo.endTime);
+    auction.append('image', fileItem);
+    return auction;
   }
 
-  insertAuctionBundle(auctionBundle: FormData): Observable<any> {
-    return this.http.post<any>('http://localhost:2000/api/auctions', auctionBundle);
-  }
-
-  uploadFile(auction: FormData): Observable<any> {
-    /*
-    data.forEach((value, key) => {
-      console.log("key %s: value %s", key, value);
-    })
-    */
-    //return this.http.post<any>('http://localhost:4000/images/upload', data);
-    console.log('tryin to saving: ', auction);
-    return this.http.post<any>('http://localhost:2000/api/auctions/uploadauction', auction);
-  }
-
-  showSelectedValues() {
-    console.log(`Selected Category: ${this.child.selectedCategory} Selected Date: ${this.child.selectedDate} Selected Time: ${this.child.selectedTime} Selected Interval: ${this.child.selectedInterval}`);
-  }
   onChildDateAndTimeChanged(event) {
     this.refreshUIInfoTime();
   }
-
-  ngOnInit() {
-    this.uploadForm = this.fb.group({
-      document: [null, null]
-    });
-    helper.avoidDragAndDrop("dropZone");
-    this.whenAnImageIsDropped();
-  }
-
-  whenAnImageIsDropped() {
-    let dropZone = document.getElementById('dropZone');
-    dropZone.addEventListener('drop', (e) => {
-      this.refreshUIInfoTime();
-      dropZone.classList.remove('dropzoneHightlight');
-      dropZone.classList.remove('dropzoneFocus');
-    });
-  }
-
   onChangedCategory(validCategory) {
     this.isValidCategory = validCategory;
     this.checkIsValid();
@@ -212,7 +181,6 @@ export class AuctionNewComponent implements OnInit {
 
   onDroppedWithInZone(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.uploader.queue, event.previousIndex, event.currentIndex);
-    //console.log(`Moving from ${event.previousIndex} to ${event.currentIndex}`);
     this.refreshUIInfoTime();
   }
 
@@ -249,7 +217,6 @@ export class AuctionNewComponent implements OnInit {
   }
   onKeydown(event: any) {
     if (event.key === "Enter") {
-      //console.log(this.generalBasePrice);
       this.setPriceToAll();
     }
   }
@@ -257,9 +224,9 @@ export class AuctionNewComponent implements OnInit {
     setTimeout(() => {
       let publications = Array.from(document.getElementById('container').children);
       publications.forEach((publication) => {
-        let controlBasePrice =  publication.children[0].children[1].children[0].children[1].children[0];
+        let controlBasePrice = publication.children[0].children[1].children[0].children[1].children[0];
         (<HTMLInputElement>controlBasePrice).value = this.generalBasePrice;
       });
-    }, 500);
+    }, 250);
   }
 }

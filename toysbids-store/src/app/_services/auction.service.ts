@@ -24,4 +24,15 @@ export class AuctionService {
     //return this.http.get(`https://rickandmortyapi.com/api/character/${auctionId}`);
     return this.http.get(`http://localhost:2000/api/auctions/updateauction/${auctionId}/${basePrice}`);
   }
+  insertAuctionBundle(auctionBundle: FormData){
+    return this.http.post<any>('http://localhost:2000/api/auctions', auctionBundle);
+  }
+  insertAuction(auction: FormData){
+    /*
+    data.forEach((value, key) => {
+      console.log("key %s: value %s", key, value);
+    })
+    */
+    return this.http.post<any>('http://localhost:2000/api/auctions/uploadauction', auction);
+  }
 }
