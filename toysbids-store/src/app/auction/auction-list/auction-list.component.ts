@@ -23,6 +23,10 @@ export class AuctionListComponent implements OnInit {
 
   ngOnInit() {
     this.getAuctionBundles();
+    this.auctionService.onAuctionBundlesChanged.subscribe(data => {
+      this.auctionBundles = data[0];
+      this.router.navigate(['/auction', data[1]], { relativeTo: this.route });
+    });
   }
 
   getAuctionBundles() {

@@ -11,6 +11,7 @@ import { ToastrService } from 'ngx-toastr';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import * as helper from './../../_helpers/helper'
 import { AuctionService } from 'src/app/_services/auction.service';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-auction-new',
@@ -27,6 +28,7 @@ export class AuctionNewComponent implements OnInit {
   isValid: boolean = false;
   isValidCategory = false;
   areThereImages = false;
+  c: number;
 
   @ViewChild(AuctionNewHeaderComponent) child;
   myInnerHeight: number;
@@ -48,7 +50,7 @@ export class AuctionNewComponent implements OnInit {
     });
   }
 
-  constructor(private auctionService: AuctionService, private fb: FormBuilder, private http: HttpClient, private toastr: ToastrService) { }
+  constructor(private auctionService: AuctionService, private fb: FormBuilder, private toastr: ToastrService) { }
 
   getItemInfoById(id: any) {
     let info: Info = new Info(0, '', '');
@@ -122,20 +124,27 @@ export class AuctionNewComponent implements OnInit {
       });
     }
   }
+
   saveAuctions(auctionBundleId: string) {
+    this.c = 0;
     if (auctionBundleId != undefined) {
       for (var j = 0; j < this.uploader.queue.length; j++) {
         let auction = this.createAuction(j, auctionBundleId);
-        this.auctionService.insertAuction(auction).subscribe(res => this.workingWithTheResult(res), err => {
+        this.auctionService.insertAuction(auction).subscribe(res => this.workingWithTheResult(auctionBundleId), err => {
           this.toastr.error(this.title, err.message, {
             timeOut: 3000
           });
         });
       }
-      this.uploader.clearQueue();
     }
   }
-  workingWithTheResult(res: any) { }
+  workingWithTheResult(res: any) {
+    this.c++;
+    if (this.c === this.uploader.queue.length) {
+      console.log('working finished !!!!!!');
+      this.auctionService.finishedSaveAuction(res);
+    }
+  }
 
   createAuctionBundle() {
     let auctionBundle = new FormData();
@@ -216,8 +225,8 @@ export class AuctionNewComponent implements OnInit {
 
   setBasePrice(generalBasePrice: string) {
     setTimeout(() => {
-      let publications = Array.from(document.getElementById('container').children);
-      publications.forEach((publication) => {
+      let auctions = Array.from(document.getElementById('container').children);
+      auctions.forEach((publication) => {
         let controlBasePrice = publication.children[0].children[1].children[0].children[1].children[0];
         (<HTMLInputElement>controlBasePrice).value = generalBasePrice;
       });
