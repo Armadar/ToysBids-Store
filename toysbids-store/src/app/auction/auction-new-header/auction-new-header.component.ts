@@ -22,7 +22,7 @@ export class AuctionNewHeaderComponent {
   selectedDate = this.getSelectedDate();
   selectedTime = this.getSelectedTime();
   selectedInterval: number = 2;
-  
+  generalBasePrice: string;  
   values: any[]
 
   constructor(private _localeService: BsLocaleService, private datePipe: DatePipe) {
@@ -86,5 +86,12 @@ export class AuctionNewHeaderComponent {
     this.values.push(this.datePipe.transform((moment(this.myDate).format('L')), "yyyy-MM-dd"));
     this.values.push(moment(this.myTime).get('hour'));
     this.datetimechange.emit(this.values);
+  }
+
+  onKeyup(event: any) {
+    this.generalBasePrice = event.target.value;
+  }
+  applyBasePrice(){
+    console.log(this.generalBasePrice);
   }
 }

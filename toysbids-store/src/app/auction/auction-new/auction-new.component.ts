@@ -27,7 +27,6 @@ export class AuctionNewComponent implements OnInit {
   isValid: boolean = false;
   isValidCategory = false;
   areThereImages = false;
-  generalBasePrice: string;
 
   @ViewChild(AuctionNewHeaderComponent) child;
   myInnerHeight: number;
@@ -212,20 +211,12 @@ export class AuctionNewComponent implements OnInit {
     }
   }
 
-  onKeyup(event: any) {
-    this.generalBasePrice = event.target.value;
-  }
-  onKeydown(event: any) {
-    if (event.key === "Enter") {
-      this.setPriceToAll();
-    }
-  }
-  setPriceToAll() {
+  setPriceToAll(generalBasePrice:string) {
     setTimeout(() => {
       let publications = Array.from(document.getElementById('container').children);
       publications.forEach((publication) => {
         let controlBasePrice = publication.children[0].children[1].children[0].children[1].children[0];
-        (<HTMLInputElement>controlBasePrice).value = this.generalBasePrice;
+        (<HTMLInputElement>controlBasePrice).value = generalBasePrice;
       });
     }, 250);
   }
