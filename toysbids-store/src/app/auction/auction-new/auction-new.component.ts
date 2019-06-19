@@ -99,7 +99,7 @@ export class AuctionNewComponent implements OnInit {
   isNotValidBasePrice(val: any) {
     return val === undefined || val === null || val.length === 0 || isNaN(Number(val));
   }
-  
+
   save() {
     if (this.isValidInfo()) {
       for (var i = 0; i < this.uploader.queue.length; i++) {
@@ -165,9 +165,12 @@ export class AuctionNewComponent implements OnInit {
   onChildDateAndTimeChanged(event) {
     this.refreshUIInfoTime();
   }
-  onChangedCategory(validCategory) {
+  onCategoryChanged(validCategory) {
     this.isValidCategory = validCategory;
     this.checkIsValid();
+  }
+  onBasePriceChanged(basePrice) {
+    this.setBasePrice(basePrice);
   }
   onFileChanged(event) {
     this.refreshUIInfoTime();
@@ -211,7 +214,7 @@ export class AuctionNewComponent implements OnInit {
     }
   }
 
-  setPriceToAll(generalBasePrice:string) {
+  setBasePrice(generalBasePrice: string) {
     setTimeout(() => {
       let publications = Array.from(document.getElementById('container').children);
       publications.forEach((publication) => {

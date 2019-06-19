@@ -1,7 +1,7 @@
 <div class="height-full">
     <div class="row height-full" style="display:flex">
         <div class="col-md-4 height-full border-gray" style="padding-top:7px">
-            <app-auction-new-header (datetimechange)="onChildDateAndTimeChanged($event)" (changeCategory)="onChangedCategory($event)">
+            <app-auction-new-header (datetimeChanged)="onChildDateAndTimeChanged($event)" (categoryChanged)="onCategoryChanged($event)" (basePriceChanged)="onBasePriceChanged($event)">
             </app-auction-new-header>
         </div>
         <div class="col-md-8 height-full border-gray">

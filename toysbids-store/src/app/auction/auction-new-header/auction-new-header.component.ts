@@ -17,12 +17,12 @@ export class AuctionNewHeaderComponent {
   myDate: Date = new Date();
   myTime: Date = this.getInitHour();
 
-  title:string;
+  title: string;
   selectedCategory: number = 0;
   selectedDate = this.getSelectedDate();
   selectedTime = this.getSelectedTime();
   selectedInterval: number = 2;
-  generalBasePrice: string;  
+  basePrice: string;
   values: any[]
 
   constructor(private _localeService: BsLocaleService, private datePipe: DatePipe) {
@@ -30,8 +30,9 @@ export class AuctionNewHeaderComponent {
     this._localeService.use('es');
   }
 
-  @Output() datetimechange: EventEmitter<any[]> = new EventEmitter<any[]>();
-  @Output() changeCategory: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() datetimeChanged: EventEmitter<any[]> = new EventEmitter<any[]>();
+  @Output() categoryChanged: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() basePriceChanged: EventEmitter<string> = new EventEmitter<string>();
 
   getSelectedDate() { return this.datePipe.transform((moment(this.myDate).format('L')), "yyyy-MM-dd"); }
   getSelectedTime() { return moment(this.myTime).get('hour'); }
@@ -60,12 +61,12 @@ export class AuctionNewHeaderComponent {
       this.selectedCategory = event.value.id;
       control.classList.remove('border-red');
       control.classList.add('border-green');
-      this.changeCategory.emit(true);
+      this.categoryChanged.emit(true);
     } else {
       this.selectedCategory = 0;
       control.classList.remove('border-green');
       control.classList.add('border-red');
-      this.changeCategory.emit(false);
+      this.categoryChanged.emit(false);
     }
   }
   onDateChanged() {
@@ -85,13 +86,15 @@ export class AuctionNewHeaderComponent {
     this.values = [];
     this.values.push(this.datePipe.transform((moment(this.myDate).format('L')), "yyyy-MM-dd"));
     this.values.push(moment(this.myTime).get('hour'));
-    this.datetimechange.emit(this.values);
+    this.datetimeChanged.emit(this.values);
   }
 
   onKeyup(event: any) {
-    this.generalBasePrice = event.target.value;
+    this.basePrice = event.target.value;
   }
-  applyBasePrice(){
-    console.log(this.generalBasePrice);
+  applyBasePrice() {
+    if (this.basePrice != undefined) {
+      this.basePriceChanged.emit(this.basePrice);
+    }
   }
 }
