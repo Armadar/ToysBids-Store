@@ -141,8 +141,10 @@ export class AuctionNewComponent implements OnInit {
   workingWithTheResult(res: any) {
     this.c++;
     if (this.c === this.uploader.queue.length) {
-      console.log('working finished !!!!!!');
       this.auctionService.finishedSaveAuction(res);
+      this.toastr.success(this.title, "Las subastas han sido publicadas ", {
+        timeOut: 3000
+      });
     }
   }
 
