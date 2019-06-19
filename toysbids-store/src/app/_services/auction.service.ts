@@ -13,9 +13,6 @@ export class AuctionService {
   constructor(private http: HttpClient) { }
 
   getAuctionBundles(page: number) {
-    return this.http.get(`http://localhost:2000/api/auctions`);
-  }
-  getAuctionBundles2() {
     return this.http.get<AuctionBundle[]>(`http://localhost:2000/api/auctions`);
   }
 
@@ -42,8 +39,8 @@ export class AuctionService {
     return this.http.post<any>('http://localhost:2000/api/auctions/uploadauction', auction);
   }
   finishedSaveAuction(auctionBundleId: string) {
-    this.getAuctionBundles2().subscribe(auctionBundles => {
-      this.onAuctionBundlesChanged.next([auctionBundles, auctionBundleId]);
+    this.getAuctionBundles(1).subscribe(response => {
+      this.onAuctionBundlesChanged.next([response, auctionBundleId]);
     });
   }
 }

@@ -14,6 +14,7 @@ export class AuctionListComponent implements OnInit {
   page = 1;
   showLoadingIcon = true;
   auctionsCount = 0;
+  message: string;
 
   @Output() selectedAuction: EventEmitter<number> = new EventEmitter<number>();
 
@@ -30,19 +31,20 @@ export class AuctionListComponent implements OnInit {
   }
 
   getAuctionBundles() {
-    this.auctionService.getAuctionBundles(this.page).subscribe((res) => this.onSuccess(res));
+    this.auctionService.getAuctionBundles(this.page).subscribe(res => {
+      if (res != undefined) {
+        this.auctionBundles = res;
+        this.auctionBundles.forEach(auctionBundle => {
+          auctionBundle.range = this.generateRange(auctionBundle.from, auctionBundle.to);
+        })
+        this.showLoadingIcon = false;
+        this.auctionsCount = this.auctionBundles.length;
+      }
+    }, (err) => {
+      this.auctionBundles = []; this.message = err.message;
+    });
   }
-  onSuccess(res) {
-    if (res != undefined) {
-      res.forEach(item => {
-        let ab = new AuctionBundle(item.id, item.storeID, item.categoryID, item.title, item.from, item.to, item.createdOn, item.createdBy, item.auctionsCount);
-        ab.range = this.generateRange(item.from, item.to);
-        this.auctionBundles.push(ab);
-      });
-      this.showLoadingIcon = false;
-      this.auctionsCount = this.auctionBundles.length;
-    }
-  }
+
   onScroll() {
     this.showLoadingIcon = true;
     this.page = this.page + 1;

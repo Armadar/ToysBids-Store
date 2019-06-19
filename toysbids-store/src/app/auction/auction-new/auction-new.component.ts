@@ -130,7 +130,7 @@ export class AuctionNewComponent implements OnInit {
     if (auctionBundleId != undefined) {
       for (var j = 0; j < this.uploader.queue.length; j++) {
         let auction = this.createAuction(j, auctionBundleId);
-        this.auctionService.insertAuction(auction).subscribe(res => this.workingWithTheResult(auctionBundleId), err => {
+        this.auctionService.insertAuction(auction).subscribe(res => this.onSavedAuction(auctionBundleId), err => {
           this.toastr.error(this.title, err.message, {
             timeOut: 3000
           });
@@ -138,12 +138,12 @@ export class AuctionNewComponent implements OnInit {
       }
     }
   }
-  workingWithTheResult(res: any) {
+  onSavedAuction(res: any) {
     this.c++;
     if (this.c === this.uploader.queue.length) {
       this.auctionService.finishedSaveAuction(res);
       this.toastr.success(this.title, "Las subastas han sido publicadas ", {
-        timeOut: 4000
+        timeOut: 5000
       });
     }
   }
