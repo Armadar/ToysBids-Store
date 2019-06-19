@@ -143,7 +143,7 @@ export class AuctionNewComponent implements OnInit {
     if (this.c === this.uploader.queue.length) {
       this.auctionService.finishedSaveAuction(res);
       this.toastr.success(this.title, "Las subastas han sido publicadas ", {
-        timeOut: 3000
+        timeOut: 4000
       });
     }
   }
