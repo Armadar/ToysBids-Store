@@ -14,7 +14,7 @@ export class AuctionItemDetailComponent implements OnInit {
   constructor(private auctionService: AuctionService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
-    this.auction = new Auction(0, 0,0, 0, new Date(), new Date(), 8, '');
+    this.auction = new Auction(0, 0, 0, 0, new Date(), new Date(), 8, '', 1000);
   }
 
   setInfo(auctionInfo: Auction) {
@@ -30,10 +30,6 @@ export class AuctionItemDetailComponent implements OnInit {
   }
 
   save() {
-    this.auctionService.updateAuction(this.creationAuction()).subscribe((res) => this.onSuccess(res));
-  }
-  onSuccess(res) {
-    if (res != undefined) {
-    }
+    this.auctionService.updateAuction(this.creationAuction(), this.auction.auctionBundleId);
   }
 }

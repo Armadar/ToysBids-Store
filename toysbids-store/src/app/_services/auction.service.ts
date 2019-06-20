@@ -13,6 +13,7 @@ export class AuctionService {
   //return this.http.get(`https://rickandmortyapi.com/api/character/${auctionId}`);
 
   onAuctionBundlesChanged = new Subject<any[]>();
+  onAuctionIsUpdated = new Subject<Auction[]>();
 
   constructor(private http: HttpClient) { }
 
@@ -22,11 +23,15 @@ export class AuctionService {
   getAuctionItems(auction: number, page: number) {
     return this.http.get<Auction[]>(`http://localhost:2000/api/auctions/getauctionsbyauctionbundleid/${auction}`);
   }
-  getAuctionInfo(auctionId: number) {    
+  getAuctionInfo(auctionId: number) {
     return this.http.get<Auction>(`http://localhost:2000/api/auctions/getauctioninfo/${auctionId}`);
   }
-  updateAuction(auction: FormData) {
-    return this.http.post<any>('http://localhost:2000/api/auctions/updateauction/', auction);
+  updateAuction(auction: FormData, auctionBundleId: number) {
+    return this.http.post<any>('http://localhost:2000/api/auctions/updateauction/', auction).subscribe(res => {
+      this.getAuctionItems(auctionBundleId, 1).subscribe(res => {
+        this.onAuctionIsUpdated.next(res);
+      });
+    });
   }
   insertAuctionBundle(auctionBundle: FormData) {
     return this.http.post<any>('http://localhost:2000/api/auctions', auctionBundle);
