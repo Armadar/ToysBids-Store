@@ -2,6 +2,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { AuctionService } from 'src/app/_services/auction.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Auction } from 'src/app/_model/auction';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-auction-item-list',
@@ -15,15 +16,19 @@ export class AuctionItemListComponent implements OnInit {
   auctionsCount = 0;
   auctionBundleId = 0;
   message: string;
+  title: string = "Toys Bids";
 
   @Output() selectedAuctionItem: EventEmitter<number> = new EventEmitter<number>();
 
   constructor(private auctionService: AuctionService, private router: Router,
-    private route: ActivatedRoute) {
+    private route: ActivatedRoute,private toastr: ToastrService) {
   }
   ngOnInit() {
     this.auctionService.onAuctionIsUpdated.subscribe(data => {
       this.auctions = data;
+      this.toastr.success(this.title, "La subasta ha sido actualizada", {
+        timeOut: 5000
+      });
     });
   }
   getAuctionItemsByAuctionBundleId(auctionBundleId: number) {

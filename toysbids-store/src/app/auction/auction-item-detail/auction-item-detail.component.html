@@ -1,22 +1,17 @@
 <div style="height: 100%">
     <div style="height: 13%">
-        <div class="col-md-6">
-            <div class="form-group" style="margin-top:7px;">
-                <label for="baseprice">Precio Base:</label>
-                <input id="baseprice" type="text" class="form-control form-control-sm" [(ngModel)]="auction.price">
-            </div>
+        <div class="form-group" style="margin-top:7px;">
+            <label for="baseprice">Precio Base:</label>
+            <input id="baseprice" type="text" class="form-control form-control-sm" [(ngModel)]="auction.price">
         </div>
     </div>
     <div style="height: 37%">
-        <div class="col-md-6">
-            <div class="form-group" style="margin-top:7px;">
-                <label for="images">Imagenes:</label>
-
-            </div>
+        <div class="form-group" style="margin-top:7px;">
+            <label for="images">Imagenes:</label>
         </div>
     </div>
     <div style="height: 40%">
-        <div class="col-md-11" style="height:80%;width:100%">
+        <div style="height:80%;width:100%">
             <div class="form-group" style="height:100%;">
                 <label for="description">Descripcion:</label>
                 <textarea style="height:100%" id="description" class="form-control" [(ngModel)]="auction.description"></textarea>

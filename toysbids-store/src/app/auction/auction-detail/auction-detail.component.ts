@@ -11,21 +11,21 @@ import { AuctionItemDetailComponent } from '../auction-item-detail/auction-item-
 })
 export class AuctionDetailComponent implements OnInit {
   id: number;
-  @ViewChild(AuctionItemListComponent) child;
-  @ViewChild(AuctionItemDetailComponent) child2;
+  @ViewChild(AuctionItemListComponent) auctionsList;
+  @ViewChild(AuctionItemDetailComponent) auctionDetail;
 
   constructor(private auctionService: AuctionService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
       this.id = params['id'];
-      this.child.getAuctionItemsByAuctionBundleId(this.id);
+      this.auctionsList.getAuctionItemsByAuctionBundleId(this.id);
     });
   }
   onSelectedAuctionItem(auctionItemId: number) {   
     this.auctionService.getAuctionInfo(auctionItemId).subscribe(res => {
       if (res != undefined) {
-        this.child2.setInfo(res);
+        this.auctionDetail.setInfo(res);
       }
     }, (err) => {
       //this.auction = []; this.message = err.message;

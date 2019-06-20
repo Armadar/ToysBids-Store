@@ -8,10 +8,15 @@
             <form [formGroup]="uploadForm" (ngSubmit)="save()" class="height-full">
                 <div class="col-md-6 height-full">
                     <div class="row" style="height:7%;margin-top:7px">
-                        <label for="file-upload" class="custom-file-upload">
-                            <i class="fa fa-cloud-upload"></i> Seleccionar imagenes
-                        </label>
-                        <input (change)="onFileChanged($event)" formControlName="document" id="file-upload" type="file" ng2FileSelect accept="image/png,image/jpeg,image/jpg" [uploader]="uploader" multiple /><br />
+                        <div class="col-md-10" style="padding:0px !important">
+                            <label for="file-upload" class="custom-file-upload">
+                                <i class="fa fa-cloud-upload"></i> Seleccionar imagenes
+                            </label>
+                            <input (change)="onFileChanged($event)" formControlName="document" id="file-upload" type="file" ng2FileSelect accept="image/png,image/jpeg,image/jpg" [uploader]="uploader" multiple /><br />
+                        </div>
+                        <div class="col-md-2" style="margin-top:5px">
+                            {{this.uploader.queue.length}}
+                        </div>
                         <br>
                     </div>
                     <div class="row" style="height:84%">
