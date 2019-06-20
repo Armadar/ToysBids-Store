@@ -18,10 +18,10 @@
     </div>
 
     <div id="container-auctions" infiniteScroll [infiniteScrollDistance]="1" [infiniteScrollThrottle]="300" (scrolled)="onScroll()" [scrollWindow]="false" class="list-container" (click)="onSelectedItem($event.target,$event.target.id)">
-        <div id={{item.id}} *ngFor="let item of auctionItems;let i = index" class="list-group-item">
+        <div id={{item.id}} *ngFor="let item of auctions;let i = index" class="list-group-item">
             <div class="row">
                 <div class="col-sm-4">
-                    <img src="{{item.mainImage}}" height="100px" width="100px">
+                    <img src="{{item.mainPicture}}" height="100px" width="100px">
                 </div>
                 <div class="col-sm-8">
                     <div class="category">Precio base: {{item.price}}</div>

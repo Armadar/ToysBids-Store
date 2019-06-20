@@ -1,7 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { AuctionService } from 'src/app/_services/auction.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuctionItem } from 'src/app/_model/auctionItem';
+import { Auction } from 'src/app/_model/auction';
 
 @Component({
   selector: 'app-auction-item-list',
@@ -9,43 +9,36 @@ import { AuctionItem } from 'src/app/_model/auctionItem';
   styleUrls: ['./auction-item-list.component.css']
 })
 export class AuctionItemListComponent implements OnInit {
-  auctionItems: AuctionItem[] = [];
+  auctions: Auction[] = [];
   page = 1;
   showLoadingIcon = true;
   auctionsCount = 0;
   auctionBundleId = 0;
+  message: string;
 
   @Output() selectedAuctionItem: EventEmitter<number> = new EventEmitter<number>();
 
   constructor(private auctionService: AuctionService, private router: Router,
     private route: ActivatedRoute) {
   }
-  ngOnInit() {}
-  getAuctionItems() {
-    this.auctionService.getAuctionItems(this.auctionBundleId, this.page).subscribe((res) => this.onSuccess(res));
-  }
+  ngOnInit() { }
   getAuctionItemsByAuctionBundleId(auctionBundleId: number) {
-    this.auctionItems = [];
     this.auctionBundleId = auctionBundleId;
-    this.getAuctionItems()
+    this.auctionService.getAuctionItems(this.auctionBundleId, this.page).subscribe(res => {
+      if (res != undefined) {
+        this.auctions = res;
+        this.showLoadingIcon = false;
+        this.auctionsCount = this.auctions.length;
+      }
+    }, (err) => {
+      this.auctions = []; this.message = err.message;
+    });
   }
 
-  onSuccess(res) {
-    if (res != undefined) {
-      let c = 1;
-      res.forEach(item => {
-        let auction = new AuctionItem(item.id, item.price, 0, 0, item.beginDate, item.endDate, 0, item.mainPicture);
-        this.auctionItems.push(auction);
-        c++;
-      });
-      this.showLoadingIcon = false;
-      this.auctionsCount = this.auctionItems.length;
-    }
-  }
   onScroll() {
     this.showLoadingIcon = true;
     this.page = this.page + 1;
-    this.getAuctionItems();
+    this.getAuctionItemsByAuctionBundleId(this.auctionBundleId);
   }
   onSelectedItem(target, id: number) {
     this.selectedAuctionItem.emit(id);
