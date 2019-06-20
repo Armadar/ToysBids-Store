@@ -22,10 +22,13 @@ export class AuctionDetailComponent implements OnInit {
       this.child.getAuctionItemsByAuctionBundleId(this.id);
     });
   }
-
-  onSelectedAuctionItem(auctionItemID) {
-    this.auctionService.getAuctionInfo(auctionItemID).subscribe(data => {
-      this.child2.setInfo(data);
+  onSelectedAuctionItem(auctionItemId: number) {   
+    this.auctionService.getAuctionInfo(auctionItemId).subscribe(res => {
+      if (res != undefined) {
+        this.child2.setInfo(res);
+      }
+    }, (err) => {
+      //this.auction = []; this.message = err.message;
     });
   }
 }
