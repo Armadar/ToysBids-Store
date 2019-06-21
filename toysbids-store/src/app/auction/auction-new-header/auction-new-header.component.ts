@@ -13,7 +13,7 @@ import { DatePipe } from '@angular/common';
   styleUrls: ['./auction-new-header.component.css']
 })
 export class AuctionNewHeaderComponent {
-
+  //TODO validate tha Auction title exists
   myDate: Date = new Date();
   myTime: Date = this.getInitHour();
 
