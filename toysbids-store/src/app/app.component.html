@@ -1,4 +1,4 @@
-<app-header></app-header>
+<app-header *ngIf="loginService.estaLogeado()===1"></app-header>
 <div style="margin-top:-10px;width:98%">
     <div class="row">
         <div class="cols-md-12">
@@ -6,4 +6,4 @@
         </div>
     </div>
 </div>
-<app-footer></app-footer>
+<app-footer *ngIf="loginService.estaLogeado()===1"></app-footer>

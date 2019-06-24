@@ -1,0 +1,52 @@
+<div class="container">
+  <div class="login-area">    
+      <div class="container">
+        <div class="login-header">
+          <div class="row">
+            <div class="col-md-6 col-sm-6 col-xs-12">
+              <div class="login-logo">
+
+              </div>
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+              <div class="login-details">
+                <ul class="nav nav-tabs navbar-right">
+                  <li class="active">
+                    <a data-toggle="tab" href="#login">Login</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="tab-content">
+          <div id="login" class="tab-pane fade in active">
+            <div class="login-inner">
+              <div class="title">
+                <h1>Iniciar
+                  <span>sesión</span>
+                </h1>
+              </div>
+              <div class="login-form">
+                <form (ngSubmit)="iniciarSesion(f)" #f="ngForm">
+                  <div class="form-details">
+                    <label class="user">
+                      <input type="text" name="usuario" placeholder="Usuario" id="usuario" ngModel>
+                    </label>
+                    <label class="pass">
+                      <input type="password" name="clave" placeholder="Clave" id="clave" ngModel>
+                    </label>
+                    {{mensaje}}
+                  </div>
+                  <button type="submit" class="btn btn-primary btn-lg">Iniciar</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+</div>

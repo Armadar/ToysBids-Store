@@ -17,20 +17,27 @@ import { AuctionBeginComponent } from './auction/auction-begin/auction-begin.com
 import { BsDatepickerModule } from 'ngx-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FileSelectDirective, FileDropDirective } from 'ng2-file-upload';
-import {HttpClientModule} from "@angular/common/http";
+import { HttpClientModule } from "@angular/common/http";
 import { ImagePreview } from './auction/auction-new/image-preview.directive';
 import { AuctionNewHeaderComponent } from './auction/auction-new-header/auction-new-header.component';
 
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { DragDropModule } from '@angular/cdk/drag-drop';
-import {DatePipe} from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { AuctionService } from './_services/auction.service';
+import { LoginService } from './_services/login.service';
+
+import { LoginGuard } from './_services/login-guard.service';
+import { Security } from './_services/security';
+import { EncryptionHelper } from './_services/encryptionHelper';
+
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { AuctionItemListComponent } from './auction/auction-item-list/auction-item-list.component';
 import { AuctionItemDetailComponent } from './auction/auction-item-detail/auction-item-detail.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +56,8 @@ import { AuctionItemDetailComponent } from './auction/auction-item-detail/auctio
     AuctionBeginComponent,
     AuctionNewHeaderComponent,
     AuctionItemListComponent,
-    AuctionItemDetailComponent
+    AuctionItemDetailComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -66,7 +74,7 @@ import { AuctionItemDetailComponent } from './auction/auction-item-detail/auctio
     DragDropModule,
     InfiniteScrollModule
   ],
-  providers: [DatePipe,AuctionService],
+  providers: [DatePipe, AuctionService, LoginService, LoginGuard, Security, EncryptionHelper],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
