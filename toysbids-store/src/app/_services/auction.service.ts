@@ -3,14 +3,12 @@ import { HttpClient } from '@angular/common/http';
 import { AuctionBundle } from '../_model/auctionBundle';
 import { Subject } from 'rxjs';
 import { Auction } from '../_model/auction';
+import { AuctionsMicroServiceURL } from './var.constant';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuctionService {
-
-  //return this.http.get(`https://randomuser.me/api/?results=10&page=${auction}`);
-  //return this.http.get(`https://rickandmortyapi.com/api/character/${auctionId}`);
 
   onAuctionBundlesChanged = new Subject<any[]>();
   onAuctionIsUpdated = new Subject<Auction[]>();
@@ -18,23 +16,24 @@ export class AuctionService {
   constructor(private http: HttpClient) { }
 
   getAuctionBundles(page: number) {
-    return this.http.get<AuctionBundle[]>(`http://localhost:2000/api/auctions`);
+    AuctionsMicroServiceURL
+    return this.http.get<AuctionBundle[]>(`${AuctionsMicroServiceURL}`);
   }
   getAuctionItems(auction: number, page: number) {
-    return this.http.get<Auction[]>(`http://localhost:2000/api/auctions/getauctionsbyauctionbundleid/${auction}`);
+    return this.http.get<Auction[]>(`${AuctionsMicroServiceURL}/getauctionsbyauctionbundleid/${auction}`);
   }
   getAuctionInfo(auctionId: number) {
-    return this.http.get<Auction>(`http://localhost:2000/api/auctions/getauctioninfo/${auctionId}`);
+    return this.http.get<Auction>(`${AuctionsMicroServiceURL}/getauctioninfo/${auctionId}`);
   }
   updateAuction(auction: FormData, auctionBundleId: number) {
-    return this.http.post<any>('http://localhost:2000/api/auctions/updateauction/', auction).subscribe(res => {
+    return this.http.post<any>(`${AuctionsMicroServiceURL}/updateauction/`, auction).subscribe(res => {
       this.getAuctionItems(auctionBundleId, 1).subscribe(res => {
         this.onAuctionIsUpdated.next(res);
       });
     });
   }
   insertAuctionBundle(auctionBundle: FormData) {
-    return this.http.post<any>('http://localhost:2000/api/auctions', auctionBundle);
+    return this.http.post<any>(`${AuctionsMicroServiceURL}`, auctionBundle);
   }
   insertAuction(auction: FormData) {
     /*
@@ -42,7 +41,7 @@ export class AuctionService {
       console.log("key %s: value %s", key, value);
     })
     */
-    return this.http.post<any>('http://localhost:2000/api/auctions/uploadauction', auction);
+    return this.http.post<any>(`${AuctionsMicroServiceURL}/uploadauction`, auction);
   }
   finishedSaveAuction(auctionBundleId: string) {
     this.getAuctionBundles(1).subscribe(response => {
